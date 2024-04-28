@@ -109,6 +109,7 @@ export default {
     publicKey: '地址',
     privateKey: '私钥',
     gen: '随机生成',
+    genFromMnemonic: '助记词生成',
     copy: '复制',
     copied: '已复制',
     failed: '复制失败',

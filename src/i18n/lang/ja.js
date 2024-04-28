@@ -111,6 +111,7 @@ export default {
     publicKey: 'アドレス',
     privateKey: '秘密鍵(プライベートキー)',
     gen: '生成する',
+    genFromMnemonic: 'Generate From Mnemonic',
     copy: 'コピー',
     copied: 'コピーされました！',
     failed: 'コピーに失敗しました！',

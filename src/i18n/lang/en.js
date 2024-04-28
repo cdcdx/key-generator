@@ -110,6 +110,7 @@ export default {
     publicKey: 'Address',
     privateKey: 'Private Key',
     gen: 'Generate',
+    genFromMnemonic: 'Generate From Mnemonic',
     copy: 'Copy',
     copied: 'Copied!',
     failed: 'Copy Failed!',

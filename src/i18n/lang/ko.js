@@ -111,6 +111,7 @@ export default {
     publicKey: '주소',
     privateKey: '프라이빗 키',
     gen: '생성',
+    genFromMnemonic: 'Generate From Mnemonic',
     copy: '복사',
     copied: '복사 완료!',
     failed: '복사 실패!',
