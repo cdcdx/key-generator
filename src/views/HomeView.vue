@@ -49,6 +49,7 @@
                   <KeyItem :title="'P2WPK ' + $t('main.address')" :value="btcSegwitAddress" />
                   <KeyItem :title="'Taproot ' + $t('main.address')" :value="btcTaprootAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="btcPrivateKey" />
+                  <!-- <KeyItem :title="$t('main.publicKey')" :value="btcPublicKey" /> -->
                 </div>
                 <div class="key-box ltc" v-show="network === 'LTC'">
                   <KeyItem :title="'SegWit ' + $t('main.address')" :value="ltcAddress" />
@@ -132,7 +133,7 @@
                 {{ $t('main.genFromMnemonic') }}
               </div>
             </div>
-            <div v-if="!mnemonic" >
+            <div v-if="!mnemonic">
               <div class="generate-btn" @click="onGenerate">
                 {{ $t('main.gen') }}
               </div>
@@ -253,6 +254,7 @@ export default {
       jingtumPrivateKey: '',
       btcAddress: '',
       btcPrivateKey: '',
+      // btcPublicKey: '',
       btcP2SHAddress: '',
       btcSegwitAddress: '',
       btcTaprootAddress: '',
@@ -297,6 +299,11 @@ export default {
           name: this.$t('chain.polkadot'),
         },
         {
+          network: 'SOL',
+          icon: require('../assets/main/solana.png'),
+          name: this.$t('chain.solana'),
+        },
+        {
           network: 'ETH',
           icon: require('../assets/main/eth.png'),
           name: this.$t('chain.ethereum'),
@@ -306,11 +313,6 @@ export default {
           network: 'TRX',
           icon: require('../assets/main/tron.png'),
           name: this.$t('chain.tron'),
-        },
-        {
-          network: 'SOL',
-          icon: require('../assets/main/solana.png'),
-          name: this.$t('chain.solana'),
         },
         {
           network: 'APT',
@@ -424,6 +426,8 @@ export default {
       this.genDogeKeyfromMnemonic();
       this.genPolkadotKey();
       this.genPolkadotKeyfromMnemonic();
+      this.genSolanaKey();
+      this.genSolanaKeyfromMnemonic();
       this.genEosKey();
       this.genEthKey();
       this.genIostKey();
@@ -432,7 +436,6 @@ export default {
       this.genBinanceKey();
       this.genCosmosKey();
       this.genJingtumKey();
-      this.genSolanaKey();
       this.genAptosKey();
       this.genBCHKey();
       this.genConfluxKey();
@@ -478,7 +481,15 @@ export default {
       };
       const doge_path = "m/44'/3'/0'/0/0";
       const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        console.log('mnemonic is null');
+        return
+      }
       const seed = await mnemonicToSeed(mnemonic);
+      // // log
+      // console.log('mnemonic:', mnemonic);
+      // console.log('seed:', seed);
+
       const doge_master = bip32Obj.fromSeed(seed, DOGE_NETWORK);
       const doge_keypair = doge_master.derivePath(doge_path);
       const doge_data = bitcoin.payments.p2pkh({
@@ -648,7 +659,15 @@ export default {
         wif: 0xb0,
       };
       const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        console.log('mnemonic is null');
+        return
+      }
       const seed = await mnemonicToSeed(mnemonic);
+      // // log
+      // console.log('mnemonic:', mnemonic);
+      // console.log('seed:', seed);
+
       const master = bip32Obj.fromSeed(seed, LTC_NETWORK);
       const path = this.getLTCPath(addressTypes[0]);
       const keyPair = master.derivePath(path);
@@ -699,13 +718,19 @@ export default {
     },
 
     async genPolkadotKeyfromMnemonic() {
-      mnemonic = this.mnemonic;
-      if (mnemonic) {
-        mnemonic = mnemonicGenerate(12);
+      const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        console.log('mnemonic is null');
+        return
       }
       // PrivateKey
       const seed = mnemonicToMiniSecret(mnemonic);
       this.polkadotPrivateKey = u8aToHex(seed);
+      // // log
+      // console.log('mnemonic:', mnemonic);
+      // console.log('seed:', seed);
+      // console.log('this.polkadotPrivateKey:', this.polkadotPrivateKey);
+
       // address
       await cryptoWaitReady();
       const keyring = new Keyring({
@@ -724,6 +749,23 @@ export default {
 
     genSolanaKey() {
       const account = Keypair.generate();
+      this.solanaAddress = account.publicKey.toBase58();
+      this.solanaPrivateKey = bs58.encode(account.secretKey);
+    },
+
+    async genSolanaKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        console.log('mnemonic is null');
+        return
+      }
+      const seed = mnemonicToSeedSync(mnemonic);
+      const account = Keypair.fromSeed(seed.slice(0, 32));
+      // // log
+      // console.log('mnemonic:', mnemonic);
+      // console.log('seed:', seed);
+      // console.log('account:',account);
+
       this.solanaAddress = account.publicKey.toBase58();
       this.solanaPrivateKey = bs58.encode(account.secretKey);
     },
@@ -844,6 +886,7 @@ export default {
       const path = this.getBtcPath(addressTypes[0]);
       const keyPair = master.derivePath(path);
       this.btcPrivateKey = keyPair.toWIF();
+      // this.btcPublicKey = keyPair.toBase58().toString('hex');
       for (let index = 0; index < addressTypes.length; index++) {
         let addressType = addressTypes[index];
         switch (index) {
@@ -885,11 +928,20 @@ export default {
       const addressTypes = ['p2pkh', 'p2sh-p2wpkh', 'p2wpkh', 'p2tr'];
       const network = bitcoin.networks.bitcoin;
       const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        console.log('mnemonic is null');
+        return
+      }
       const seed = await mnemonicToSeedSync(mnemonic);
+      // // log
+      // console.log('mnemonic:', mnemonic);
+      // console.log('seed:', seed);
+
       const master = bip32Obj.fromSeed(seed, network);
       const path = this.getBtcPath(addressTypes[0]);
       const keyPair = master.derivePath(path);
       this.btcPrivateKey = keyPair.toWIF();
+      // this.btcPublicKey = keyPair.toBase58().toString('hex');
       for (let index = 0; index < addressTypes.length; index++) {
         let addressType = addressTypes[index];
         switch (index) {
@@ -948,11 +1000,14 @@ export default {
         case 'DOT':
           this.genPolkadotKey();
           break;
-        case 'ETH':
-          this.genEthKey();
+        case 'SOL':
+          this.genSolanaKey();
           break;
         case 'EOS':
           this.genEosKey();
+          break;
+        case 'ETH':
+          this.genEthKey();
           break;
         case 'IOST':
           this.genIostKey();
@@ -971,9 +1026,6 @@ export default {
           break;
         case 'JMB':
           this.genJingtumKey();
-          break;
-        case 'SOL':
-          this.genSolanaKey();
           break;
         case 'APT':
           this.genAptosKey();
@@ -1009,11 +1061,14 @@ export default {
         case 'DOT':
           this.genPolkadotKeyfromMnemonic();
           break;
-        case 'ETH':
-          this.genEthKey();
+        case 'SOL':
+          this.genSolanaKeyfromMnemonic();
           break;
         case 'EOS':
           this.genEosKey();
+          break;
+        case 'ETH':
+          this.genEthKey();
           break;
         case 'IOST':
           this.genIostKey();
@@ -1032,9 +1087,6 @@ export default {
           break;
         case 'JMB':
           this.genJingtumKey();
-          break;
-        case 'SOL':
-          this.genSolanaKey();
           break;
         case 'APT':
           this.genAptosKey();
