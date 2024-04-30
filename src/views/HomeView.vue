@@ -49,78 +49,94 @@
                   <KeyItem :title="'P2WPK ' + $t('main.address')" :value="btcSegwitAddress" />
                   <KeyItem :title="'Taproot ' + $t('main.address')" :value="btcTaprootAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="btcPrivateKey" />
-                  <!-- <KeyItem :title="$t('main.publicKey')" :value="btcPublicKey" /> -->
+                  <KeyItem :title="$t('main.publicKey')" :value="btcPublicKey" />
                 </div>
                 <div class="key-box ltc" v-show="network === 'LTC'">
                   <KeyItem :title="'SegWit ' + $t('main.address')" :value="ltcAddress" />
                   <KeyItem :title="'Legacy ' + $t('main.address')" :value="ltcP2SHAddress" />
                   <KeyItem :title="'Native SegWit ' + $t('main.address')" :value="ltcNativeSegwitAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="ltcPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="ltcPublicKey" />
                 </div>
                 <div class="key-box dogecoin" v-show="network === 'DOGE'">
-                  <KeyItem :title="$t('main.publicKey')" :value="dogeAddress" />
+                  <KeyItem :title="$t('main.address')" :value="dogeAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="dogePrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="dogePublicKey" />
                 </div>
                 <div class="key-box polkadot" v-show="network === 'DOT'">
-                  <KeyItem :title="$t('main.publicKey')" :value="polkadotAddress" />
+                  <KeyItem :title="$t('main.address')" :value="polkadotAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="polkadotPrivateKey" />
-                </div>
-                <div class="key-box ethereum" v-show="network === 'ETH'">
-                  <KeyItem :title="$t('main.publicKey')" :value="ethAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="ethPrivateKey" />
-                </div>
-                <div class="key-box eos" v-show="network === 'EOS'">
-                  <KeyItem :title="$t('main.publicKey')" :value="eosAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="eosPrivateKey" />
-                </div>
-                <div class="key-box iost" v-show="network === 'IOST'">
-                  <KeyItem :title="$t('main.publicKey')" :value="iostAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="iostPrivateKey" />
-                </div>
-                <div class="key-box tron" v-show="network === 'TRX'">
-                  <KeyItem :title="$t('main.publicKey')" :value="tronAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="tronPrivateKey" />
-                </div>
-                <div class="key-box cosmos" v-show="network === 'ATOM'">
-                  <KeyItem :title="$t('main.publicKey')" :value="cosmosAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="cosmosPrivateKey" />
-                </div>
-                <div class="key-box binance" v-show="network === 'BNB'">
-                  <KeyItem :title="$t('main.publicKey')" :value="binanceAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="binancePrivateKey" />
-                </div>
-                <div class="key-box nervos" v-show="network === 'CKB'">
-                  <KeyItem :title="$t('main.publicKey')" :value="nervosAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="nervosPrivateKey" />
-                </div>
-                <div class="key-box jingtum" v-show="network === 'JMB'">
-                  <KeyItem :title="$t('main.publicKey')" :value="jingtumAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="jingtumPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="polkadotPublicKey" />
                 </div>
                 <div class="key-box solana" v-show="network === 'SOL'">
-                  <KeyItem :title="$t('main.publicKey')" :value="solanaAddress" />
+                  <KeyItem :title="$t('main.address')" :value="solanaAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="solanaPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="solanaPublicKey" />
+                </div>
+                <div class="key-box tron" v-show="network === 'TRX'">
+                  <KeyItem :title="$t('main.address')" :value="tronAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="tronPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="tronPublicKey" />
+                </div>
+                <div class="key-box ethereum" v-show="network === 'ETH'">
+                  <KeyItem :title="$t('main.address')" :value="ethAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="ethPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="ethPublicKey" />
+                </div>
+                <div class="key-box eos" v-show="network === 'EOS'">
+                  <KeyItem :title="$t('main.address')" :value="eosAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="eosPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="eosPublicKey" />
+                </div>
+                <div class="key-box iost" v-show="network === 'IOST'">
+                  <KeyItem :title="$t('main.address')" :value="iostAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="iostPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="iostPublicKey" />
+                </div>
+                <div class="key-box cosmos" v-show="network === 'ATOM'">
+                  <KeyItem :title="$t('main.address')" :value="cosmosAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="cosmosPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="cosmosPublicKey" />
+                </div>
+                <div class="key-box binance" v-show="network === 'BNB'">
+                  <KeyItem :title="$t('main.address')" :value="binanceAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="binancePrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="binancePublicKey" />
+                </div>
+                <div class="key-box nervos" v-show="network === 'CKB'">
+                  <KeyItem :title="$t('main.address')" :value="nervosAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="nervosPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="nervosPublicKey" />
+                </div>
+                <div class="key-box jingtum" v-show="network === 'JMB'">
+                  <KeyItem :title="$t('main.address')" :value="jingtumAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="jingtumPrivateKey" />
                 </div>
                 <div class="key-box aptos" v-show="network === 'APT'">
-                  <KeyItem :title="$t('main.publicKey')" :value="aptosAddress" />
+                  <KeyItem :title="$t('main.address')" :value="aptosAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="aptosPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="aptosPublicKey" />
                 </div>
                 <div class="key-box bch" v-show="network === 'BCH'">
-                  <KeyItem :title="$t('main.publicKey')" :value="bchAddress" />
+                  <KeyItem :title="$t('main.address')" :value="bchAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="bchPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="bchPublicKey" />
                 </div>
                 <div class="key-box cfx" v-show="network === 'CFX'">
                   <KeyItem :title="$t('main.normalAddr')" :value="cfxAddress" />
                   <KeyItem :title="'Conflux Mainnet ' + $t('main.address')" :value="cfxMainnetAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="cfxPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="cfxPublicKey" />
                 </div>
                 <div class="key-box nostr" v-show="network === 'NOSTR'">
-                  <KeyItem :title="$t('main.publicKey')" :value="nostrAddress" />
+                  <KeyItem :title="$t('main.address')" :value="nostrAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="nostrPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="nostrPublicKey" />
                 </div>
                 <div class="key-box sui" v-show="network === 'SUI'">
-                  <KeyItem :title="$t('main.publicKey')" :value="suiAddress" />
+                  <KeyItem :title="$t('main.address')" :value="suiAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="suiPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="suiPublicKey" />
                 </div>
               </div>
             </div>
@@ -143,7 +159,7 @@
         </div>
       </div>
     </main>
-    <Footer />
+    <!-- <Footer /> -->
     <div class="change-chain" v-show="isMobileChain">
       <div class="container">
         <div class="title-header">
@@ -190,6 +206,7 @@ PublicKey as BCHPublicKey,
 import bs58 from 'bs58';
 import { ec as EC } from 'elliptic';
 import ecc from 'eosjs-ecc';
+// import ethers from 'ethers';
 import iost from 'iost';
 import Irisnet from 'irisnet-crypto';
 import { Wallet } from 'jingtum-base-lib';
@@ -198,6 +215,7 @@ import { generatePrivateKey, getPublicKey } from 'nostr-tools';
 import TronWeb from 'tronweb';
 import Web3 from 'web3';
 const ethers = require("ethers")
+const ethUtil = require('ethereumjs-util');
 
 const Bech32MaxSize = 5000;
 
@@ -219,45 +237,61 @@ export default {
   data() {
     return {
       dogeAddress: '',
+      dogePublicKey: '',
       dogePrivateKey: '',
       nostrAddress: '',
+      nostrPublicKey: '',
       nostrPrivateKey: '',
       suiAddress: '',
+      suiPublicKey: '',
       suiPrivateKey: '',
       cfxMainnetAddress: '',
       cfxAddress: '',
+      cfxPublicKey: '',
       cfxPrivateKey: '',
       ltcAddress: '',
       ltcP2SHAddress: '',
       ltcNativeSegwitAddress: '',
+      ltcPublicKey: '',
       ltcPrivateKey: '',
       bchAddress: '',
+      bchPublicKey: '',
       bchPrivateKey: '',
       polkadotAddress: '',
+      polkadotPublicKey: '',
       polkadotPrivateKey: '',
       aptosAddress: '',
+      aptosPublicKey: '',
       aptosPrivateKey: '',
       solanaAddress: '',
+      solanaPublicKey: '', 
       solanaPrivateKey: '',
       eosAddress: '',
+      eosPublicKey: '',
       eosPrivateKey: '',
       ethAddress: '',
+      ethPublicKey: '',
       ethPrivateKey: '',
       iostAddress: '',
+      iostPublicKey: '',
       iostPrivateKey: '',
       tronAddress: '',
+      tronPublicKey: '',
       tronPrivateKey: '',
       binanceAddress: '',
+      binancePublicKey: '',
       binancePrivateKey: '',
       cosmosAddress: '',
+      cosmosPublicKey: '',
       cosmosPrivateKey: '',
       nervosAddress: '',
+      nervosPublicKey: '',
       nervosPrivateKey: '',
       jingtumAddress: '',
       jingtumPrivateKey: '',
       btcAddress: '',
       btcPrivateKey: '',
-      // btcPublicKey: '',
+      btcPublicKey: '',
       btcP2SHAddress: '',
       btcSegwitAddress: '',
       btcTaprootAddress: '',
@@ -439,6 +473,7 @@ export default {
       this.genIostKey();
       this.genNervosKey();
       this.genBinanceKey();
+      this.genBinanceKeyfromMnemonic();
       this.genCosmosKey();
       this.genJingtumKey();
       this.genAptosKey();
@@ -471,6 +506,7 @@ export default {
       });
       this.dogeAddress = doge_data.address;
       this.dogePrivateKey = doge_keypair.toWIF();
+      this.dogePublicKey = Buffer.from(doge_keypair.publicKey).toString('hex');
     },
 
     async genDogeKeyfromMnemonic() {
@@ -487,7 +523,6 @@ export default {
       const doge_path = "m/44'/3'/0'/0/0";
       const mnemonic = this.mnemonic;
       if (!mnemonic) {
-        console.log("mnemonic is null");
         return
       }
       if (!isMnemonic(mnemonic)) {
@@ -508,6 +543,7 @@ export default {
       });
       this.dogeAddress = doge_data.address;
       this.dogePrivateKey = doge_keypair.toWIF();
+      this.dogePublicKey = Buffer.from(doge_keypair.publicKey).toString('hex');
     },
 
     genNostrKey() {
@@ -515,6 +551,7 @@ export default {
       let pk = getPublicKey(sk); // `pk` is a hex string
       this.nostrPrivateKey = this.nsecEncode(sk);
       this.nostrAddress = this.npubEncode(pk);
+      this.nostrPublicKey = pk;
     },
 
     nsecEncode(hex) {
@@ -534,13 +571,15 @@ export default {
     genSuiKey() {
       const keypair = new Ed25519Keypair();
       this.suiAddress = keypair.getPublicKey().toSuiAddress();
-      this.suiPrivateKey = toHEX(keypair.keypair.secretKey.slice(0, 32))
+      this.suiPublicKey = keypair.getPublicKey();
+      this.suiPrivateKey = toHEX(keypair.keypair.secretKey.slice(0, 32));
     },
 
     genConfluxKey() {
       var account = this.web3.eth.accounts.create();
       this.cfxAddress = account.address;
       this.cfxPrivateKey = account.privateKey;
+      this.cfxPublicKey = account.publicKey;
       this.cfxMainnetAddress = format.address(
         `0x1${account.address.toLowerCase().slice(3)}`,
         1029
@@ -551,6 +590,7 @@ export default {
       let privateKey = new BCHPrivateKey();
       this.bchPrivateKey = privateKey.toWIF();
       let publicKey = new BCHPublicKey(privateKey);
+      this.bchPublicKey = publicKey.toString();
       let address = new BCHAddress(publicKey);
       this.bchAddress = address.toString().slice(12);
     },
@@ -625,6 +665,7 @@ export default {
       const path = this.getLTCPath(addressTypes[0]);
       const keyPair = master.derivePath(path);
       this.ltcPrivateKey = keyPair.toWIF();
+      this.ltcPublicKey = Buffer.from(keyPair.publicKey).toString('hex');
        for (let index = 0; index < addressTypes.length; index++) {
         let addressType = addressTypes[index];
         switch (index) {
@@ -670,7 +711,6 @@ export default {
       };
       const mnemonic = this.mnemonic;
       if (!mnemonic) {
-        console.log("mnemonic is null");
         return
       }
       if (!isMnemonic(mnemonic)) {
@@ -687,6 +727,7 @@ export default {
       const path = this.getLTCPath(addressTypes[0]);
       const keyPair = master.derivePath(path);
       this.ltcPrivateKey = keyPair.toWIF();
+      this.ltcPublicKey = Buffer.from(keyPair.publicKey).toString('hex');
       for (let index = 0; index < addressTypes.length; index++) {
         let addressType = addressTypes[index];
         switch (index) {
@@ -730,12 +771,12 @@ export default {
       });
       const pair = keyring.addFromUri(mnemonic);
       this.polkadotAddress = pair.address;
+      this.polkadotPublicKey = u8aToHex(pair.publicKey);
     },
 
     async genPolkadotKeyfromMnemonic() {
       const mnemonic = this.mnemonic;
       if (!mnemonic) {
-        console.log("mnemonic is null");
         return
       }
       if (!isMnemonic(mnemonic)) {
@@ -759,24 +800,26 @@ export default {
       });
       const pair = keyring.addFromUri(mnemonic);
       this.polkadotAddress = pair.address;
+      this.polkadotPublicKey = u8aToHex(pair.publicKey);
     },
 
     genAptosKey() {
       const account = new AptosAccount();
       this.aptosAddress = account.authKey().hexString;
       this.aptosPrivateKey = account.toPrivateKeyObject().privateKeyHex;
+      this.aptosPublicKey = account.toPrivateKeyObject().publicKeyHex;
     },
 
     genSolanaKey() {
       const account = Keypair.generate();
       this.solanaAddress = account.publicKey.toBase58();
       this.solanaPrivateKey = bs58.encode(account.secretKey);
+      this.solanaPublicKey = account.publicKey;
     },
 
     async genSolanaKeyfromMnemonic() {
       const mnemonic = this.mnemonic;
       if (!mnemonic) {
-        console.log("mnemonic is null");
         return
       }
       if (!isMnemonic(mnemonic)) {
@@ -793,17 +836,38 @@ export default {
 
       this.solanaAddress = account.publicKey.toBase58();
       this.solanaPrivateKey = bs58.encode(account.secretKey);
+      this.solanaPublicKey = account.publicKey;
     },
 
     genEosKey() {
       ecc.randomKey().then((privateKey) => {
         this.eosPrivateKey = privateKey;
+        this.eosPublicKey = ecc.privateToPublic(privateKey);
         this.eosAddress = ecc.privateToPublic(privateKey);
       });
     },
 
     genBinanceKey() {
       this.binancePrivateKey = BncClient.crypto.generatePrivateKey();
+      this.binancePublicKey = BncClient.crypto.getPublicKeyFromPrivateKey(this.binancePrivateKey);
+      this.binanceAddress = BncClient.crypto.getAddressFromPrivateKey(
+        this.binancePrivateKey,
+        'bnb'
+      );
+    },
+
+    genBinanceKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        return
+      }
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
+        return
+      }
+      this.binancePrivateKey = BncClient.crypto.getPrivateKeyFromMnemonic(mnemonic);
+      this.binancePublicKey = BncClient.crypto.getPublicKeyFromPrivateKey(this.binancePrivateKey);
       this.binanceAddress = BncClient.crypto.getAddressFromPrivateKey(
         this.binancePrivateKey,
         'bnb'
@@ -820,16 +884,17 @@ export default {
       let account = this.crypto.create();
       this.cosmosAddress = account.address;
       this.cosmosPrivateKey = account.privateKey;
+      this.cosmosPublicKey = account.publicKey;
     },
 
     genEthKey() {
-      // const mnemonic = bip39.generateMnemonic();
-      // const mnemonic = mnemonicGenerate(12);
-      // let walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic)
       const randomWallet = ethers.Wallet.createRandom()
-      console.log('randomWallet:', randomWallet);
+      // console.log('randomWallet:', randomWallet);
       this.ethAddress = randomWallet.address;
       this.ethPrivateKey = randomWallet.privateKey;
+      // this.ethPublicKey = randomWallet.publicKey.toString('hex');
+      this.ethPublicKey = ethers.utils.computePublicKey(randomWallet.privateKey, true);
+      // console.log('this.ethPublicKey:', this.ethPublicKey);
 
       // var account = this.web3.eth.accounts.create();
       // this.ethAddress = account.address;
@@ -839,7 +904,6 @@ export default {
     genEthKeyfromMnemonic() {
       const mnemonic = this.mnemonic;
       if (!mnemonic) {
-        console.log("mnemonic is null");
         return
       }
       if (!isMnemonic(mnemonic)) {
@@ -849,9 +913,12 @@ export default {
       }
       const child = "m/44'/60'/0'/0/0";
       const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic, child)
-      console.log('walletMnemonic:', walletMnemonic);
+      // console.log('walletMnemonic:', walletMnemonic);
       this.ethAddress = walletMnemonic.address;
       this.ethPrivateKey = walletMnemonic.privateKey;
+      // this.ethPublicKey = walletMnemonic.publicKey.toString('hex');
+      this.ethPublicKey = ethers.utils.computePublicKey(walletMnemonic.privateKey,true);
+      // console.log('this.ethPublicKey:', this.ethPublicKey);
 
       // var account = this.web3.eth.accounts.create();
       // this.ethAddress = account.address;
@@ -868,6 +935,7 @@ export default {
       const address = pkToAddress(privateKey).toString("hex");
       this.tronAddress = address;
       this.tronPrivateKey = privateKey;
+      this.tronPublicKey = publicKey;
 
       // this.tronWeb.createAccount().then((res) => {
       //   this.tronAddress = res.address.base58;
@@ -878,7 +946,6 @@ export default {
     genTronKeyfromMnemonic() {
       const mnemonic = this.mnemonic;
       if (!mnemonic) {
-        console.log("mnemonic is null");
         return
       }
       if (!isMnemonic(mnemonic)) {
@@ -890,15 +957,17 @@ export default {
       const node = bip32Obj.fromSeed(seed);
       const child = node.derivePath("m/44'/195'/0'/0/0");
       const privateKey = child.privateKey.toString('hex');
-      const publickKey = child.publicKey.toString('hex');
+      const publicKey = child.publicKey.toString('hex');
       const address = pkToAddress(privateKey).toString("hex");
       this.tronAddress = address;
       this.tronPrivateKey = privateKey;
+      this.tronPublicKey = publicKey;
     },
 
     genIostKey() {
       var kp = iost.KeyPair.newKeyPair();
       this.iostPrivateKey = kp.B58SecKey();
+      this.iostPublicKey = kp.B58PubKey();
       this.iostAddress = kp.B58PubKey();
     },
 
@@ -972,7 +1041,7 @@ export default {
       const path = this.getBtcPath(addressTypes[0]);
       const keyPair = master.derivePath(path);
       this.btcPrivateKey = keyPair.toWIF();
-      // this.btcPublicKey = keyPair.toBase58().toString('hex');
+      this.btcPublicKey = Buffer.from(keyPair.publicKey).toString('hex');
       for (let index = 0; index < addressTypes.length; index++) {
         let addressType = addressTypes[index];
         switch (index) {
@@ -1015,7 +1084,6 @@ export default {
       const network = bitcoin.networks.bitcoin;
       const mnemonic = this.mnemonic;
       if (!mnemonic) {
-        console.log("mnemonic is null");
         return
       }
       if (!isMnemonic(mnemonic)) {
@@ -1032,7 +1100,7 @@ export default {
       const path = this.getBtcPath(addressTypes[0]);
       const keyPair = master.derivePath(path);
       this.btcPrivateKey = keyPair.toWIF();
-      // this.btcPublicKey = keyPair.toBase58().toString('hex');
+      this.btcPublicKey = Buffer.from(keyPair.publicKey).toString('hex');
       for (let index = 0; index < addressTypes.length; index++) {
         let addressType = addressTypes[index];
         switch (index) {
@@ -1074,6 +1142,7 @@ export default {
       let privateKey = ec.genKeyPair().priv;
       let address = new Address(privateKey, { prefix: 'ckb' });
       this.nervosPrivateKey = '0x' + address.getPrivateKey();
+      this.nervosPublicKey = '0x' + address.publicKey;
       this.nervosAddress = address.value;
     },
 
@@ -1171,7 +1240,7 @@ export default {
           this.genCosmosKey();
           break;
         case 'BNB':
-          this.genBinanceKey();
+          this.genBinanceKeyfromMnemonic();
           break;
         case 'CKB':
           this.genNervosKey();
@@ -1223,6 +1292,20 @@ function isMnemonic(input) {
 function isPrivateKey(input) {
   let hex = input.trim();
   return hex.length === 64 && /^[0-9a-fA-F]+$/.test(hex);
+}
+function compressPublicKey(publicKey) {
+  // if (!/^0x[0-9a-fA-F]{128}$/.test(publicKey)) {
+  //   throw new Error('Invalid public key format');
+  // }
+
+  let compressedKey = publicKey.slice(2); // 移除0x前缀
+
+  // 如果长度为奇数，在中间添加0，变为偶数长度
+  if (compressedKey.length % 2 === 1) {
+    compressedKey = '0' + compressedKey;
+  }
+
+  return compressedKey.toLowerCase(); // 转换为小写
 }
 </script>
 

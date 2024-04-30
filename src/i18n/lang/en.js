@@ -107,7 +107,7 @@ export default {
     tips:
       'We recommend that you generate your public and private keys offline. After generating the keys, please be sure to record and store your private key safely. Do not disclose private key information to anyone!',
     githubUrl: 'Open Source',
-    publicKey: 'Address',
+    publicKey: 'Public Key',
     privateKey: 'Private Key',
     gen: 'Generate',
     genFromMnemonic: 'Generate From Mnemonic',
