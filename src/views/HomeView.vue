@@ -178,6 +178,8 @@ mnemonicToMiniSecret,
 } from '@polkadot/util-crypto';
 import { bech32 } from '@scure/base';
 import { Keypair } from '@solana/web3.js';
+// npm install @tronscan/client
+import { pkToAddress } from "@tronscan/client/src/utils/crypto";
 import { AptosAccount } from 'aptos';
 import { generateMnemonic, mnemonicToSeed, mnemonicToSeedSync } from 'bip39';
 import {
@@ -195,6 +197,7 @@ import { format } from 'js-conflux-sdk';
 import { generatePrivateKey, getPublicKey } from 'nostr-tools';
 import TronWeb from 'tronweb';
 import Web3 from 'web3';
+const ethers = require("ethers")
 
 const Bech32MaxSize = 5000;
 
@@ -304,15 +307,15 @@ export default {
           name: this.$t('chain.solana'),
         },
         {
-          network: 'ETH',
-          icon: require('../assets/main/eth.png'),
-          name: this.$t('chain.ethereum'),
-        },
-        {
           chainId: 728126428,
           network: 'TRX',
           icon: require('../assets/main/tron.png'),
           name: this.$t('chain.tron'),
+        },
+        {
+          network: 'ETH',
+          icon: require('../assets/main/eth.png'),
+          name: this.$t('chain.ethereum'),
         },
         {
           network: 'APT',
@@ -428,11 +431,13 @@ export default {
       this.genPolkadotKeyfromMnemonic();
       this.genSolanaKey();
       this.genSolanaKeyfromMnemonic();
+      this.genTronKey();
+      this.genTronKeyfromMnemonic();
       this.genEosKey();
       this.genEthKey();
+      this.genEthKeyfromMnemonic();
       this.genIostKey();
       this.genNervosKey();
-      this.genTronKey();
       this.genBinanceKey();
       this.genCosmosKey();
       this.genJingtumKey();
@@ -481,8 +486,8 @@ export default {
       };
       const doge_path = "m/44'/3'/0'/0/0";
       const mnemonic = this.mnemonic;
-      if (!mnemonic) {
-        console.log('mnemonic is null');
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
         return
       }
       const seed = await mnemonicToSeed(mnemonic);
@@ -659,8 +664,8 @@ export default {
         wif: 0xb0,
       };
       const mnemonic = this.mnemonic;
-      if (!mnemonic) {
-        console.log('mnemonic is null');
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
         return
       }
       const seed = await mnemonicToSeed(mnemonic);
@@ -719,8 +724,8 @@ export default {
 
     async genPolkadotKeyfromMnemonic() {
       const mnemonic = this.mnemonic;
-      if (!mnemonic) {
-        console.log('mnemonic is null');
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
         return
       }
       // PrivateKey
@@ -755,8 +760,8 @@ export default {
 
     async genSolanaKeyfromMnemonic() {
       const mnemonic = this.mnemonic;
-      if (!mnemonic) {
-        console.log('mnemonic is null');
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
         return
       }
       const seed = mnemonicToSeedSync(mnemonic);
@@ -798,16 +803,67 @@ export default {
     },
 
     genEthKey() {
-      var account = this.web3.eth.accounts.create();
-      this.ethAddress = account.address;
-      this.ethPrivateKey = account.privateKey;
+      // const mnemonic = bip39.generateMnemonic();
+      // const mnemonic = mnemonicGenerate(12);
+      // let walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic)
+      const randomWallet = ethers.Wallet.createRandom()
+      console.log('randomWallet:', randomWallet);
+      this.ethAddress = randomWallet.address;
+      this.ethPrivateKey = randomWallet.privateKey;
+
+      // var account = this.web3.eth.accounts.create();
+      // this.ethAddress = account.address;
+      // this.ethPrivateKey = account.privateKey;
+    },
+
+    genEthKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
+        return
+      }
+      const child = "m/44'/60'/0'/0/0";
+      const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic, child)
+      console.log('walletMnemonic:', walletMnemonic);
+      this.ethAddress = walletMnemonic.address;
+      this.ethPrivateKey = walletMnemonic.privateKey;
+
+      // var account = this.web3.eth.accounts.create();
+      // this.ethAddress = account.address;
+      // this.ethPrivateKey = account.privateKey;
     },
 
     genTronKey() {
-      this.tronWeb.createAccount().then((res) => {
-        this.tronAddress = res.address.base58;
-        this.tronPrivateKey = res.privateKey;
-      });
+      const mnemonic = mnemonicGenerate(12);
+      const seed = mnemonicToSeedSync(mnemonic);
+      const node = bip32Obj.fromSeed(seed);
+      const child = node.derivePath("m/44'/195'/0'/0/0");
+      const privateKey = child.privateKey.toString('hex');
+      const publicKey = child.publicKey.toString('hex');
+      const address = pkToAddress(privateKey).toString("hex");
+      this.tronAddress = address;
+      this.tronPrivateKey = privateKey;
+
+      // this.tronWeb.createAccount().then((res) => {
+      //   this.tronAddress = res.address.base58;
+      //   this.tronPrivateKey = res.privateKey;
+      // });
+    },
+
+    genTronKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
+        return
+      }
+      const seed = mnemonicToSeedSync(mnemonic);
+      const node = bip32Obj.fromSeed(seed);
+      const child = node.derivePath("m/44'/195'/0'/0/0");
+      const privateKey = child.privateKey.toString('hex');
+      const publickKey = child.publicKey.toString('hex');
+      const address = pkToAddress(privateKey).toString("hex");
+      this.tronAddress = address;
+      this.tronPrivateKey = privateKey;
     },
 
     genIostKey() {
@@ -928,8 +984,8 @@ export default {
       const addressTypes = ['p2pkh', 'p2sh-p2wpkh', 'p2wpkh', 'p2tr'];
       const network = bitcoin.networks.bitcoin;
       const mnemonic = this.mnemonic;
-      if (!mnemonic) {
-        console.log('mnemonic is null');
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
         return
       }
       const seed = await mnemonicToSeedSync(mnemonic);
@@ -1003,6 +1059,9 @@ export default {
         case 'SOL':
           this.genSolanaKey();
           break;
+        case 'TRX':
+          this.genTronKey();
+          break;
         case 'EOS':
           this.genEosKey();
           break;
@@ -1011,9 +1070,6 @@ export default {
           break;
         case 'IOST':
           this.genIostKey();
-          break;
-        case 'TRX':
-          this.genTronKey();
           break;
         case 'ATOM':
           this.genCosmosKey();
@@ -1064,17 +1120,17 @@ export default {
         case 'SOL':
           this.genSolanaKeyfromMnemonic();
           break;
+        case 'TRX':
+          this.genTronKeyfromMnemonic();
+          break;
         case 'EOS':
           this.genEosKey();
           break;
         case 'ETH':
-          this.genEthKey();
+          this.genEthKeyfromMnemonic();
           break;
         case 'IOST':
           this.genIostKey();
-          break;
-        case 'TRX':
-          this.genTronKey();
           break;
         case 'ATOM':
           this.genCosmosKey();
@@ -1125,6 +1181,14 @@ export default {
     },
   },
 };
+function isMnemonic(input) {
+  let words = input.trim().split(/\s+/);
+  return words.length >= 12 && words.length <= 24;
+}
+function isPrivateKey(input) {
+  let hex = input.trim();
+  return hex.length === 64 && /^[0-9a-fA-F]+$/.test(hex);
+}
 </script>
 
 <style lang="scss">
