@@ -486,8 +486,13 @@ export default {
       };
       const doge_path = "m/44'/3'/0'/0/0";
       const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        console.log("mnemonic is null");
+        return
+      }
       if (!isMnemonic(mnemonic)) {
         console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
         return
       }
       const seed = await mnemonicToSeed(mnemonic);
@@ -664,8 +669,13 @@ export default {
         wif: 0xb0,
       };
       const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        console.log("mnemonic is null");
+        return
+      }
       if (!isMnemonic(mnemonic)) {
         console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
         return
       }
       const seed = await mnemonicToSeed(mnemonic);
@@ -724,8 +734,13 @@ export default {
 
     async genPolkadotKeyfromMnemonic() {
       const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        console.log("mnemonic is null");
+        return
+      }
       if (!isMnemonic(mnemonic)) {
         console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
         return
       }
       // PrivateKey
@@ -760,8 +775,13 @@ export default {
 
     async genSolanaKeyfromMnemonic() {
       const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        console.log("mnemonic is null");
+        return
+      }
       if (!isMnemonic(mnemonic)) {
         console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
         return
       }
       const seed = mnemonicToSeedSync(mnemonic);
@@ -818,8 +838,13 @@ export default {
 
     genEthKeyfromMnemonic() {
       const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        console.log("mnemonic is null");
+        return
+      }
       if (!isMnemonic(mnemonic)) {
         console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
         return
       }
       const child = "m/44'/60'/0'/0/0";
@@ -852,8 +877,13 @@ export default {
 
     genTronKeyfromMnemonic() {
       const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        console.log("mnemonic is null");
+        return
+      }
       if (!isMnemonic(mnemonic)) {
         console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
         return
       }
       const seed = mnemonicToSeedSync(mnemonic);
@@ -984,8 +1014,13 @@ export default {
       const addressTypes = ['p2pkh', 'p2sh-p2wpkh', 'p2wpkh', 'p2tr'];
       const network = bitcoin.networks.bitcoin;
       const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        console.log("mnemonic is null");
+        return
+      }
       if (!isMnemonic(mnemonic)) {
         console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
         return
       }
       const seed = await mnemonicToSeedSync(mnemonic);
