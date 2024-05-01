@@ -456,24 +456,24 @@ export default {
   mounted() {
     setTimeout(() => {
       this.genBtcKey();
-      this.genBtcKeyfromMnemonic();
+      // this.genBtcKeyfromMnemonic();
       this.genLTCKey();
-      this.genLTCKeyfromMnemonic();
+      // this.genLTCKeyfromMnemonic();
       this.genDogeKey();
-      this.genDogeKeyfromMnemonic();
+      // this.genDogeKeyfromMnemonic();
       this.genPolkadotKey();
-      this.genPolkadotKeyfromMnemonic();
+      // this.genPolkadotKeyfromMnemonic();
       this.genSolanaKey();
-      this.genSolanaKeyfromMnemonic();
+      // this.genSolanaKeyfromMnemonic();
       this.genTronKey();
-      this.genTronKeyfromMnemonic();
+      // this.genTronKeyfromMnemonic();
       this.genEosKey();
       this.genEthKey();
-      this.genEthKeyfromMnemonic();
+      // this.genEthKeyfromMnemonic();
       this.genIostKey();
       this.genNervosKey();
       this.genBinanceKey();
-      this.genBinanceKeyfromMnemonic();
+      // this.genBinanceKeyfromMnemonic();
       this.genCosmosKey();
       this.genJingtumKey();
       this.genAptosKey();
