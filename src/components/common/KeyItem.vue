@@ -45,7 +45,7 @@ export default {
       display: none;
     }
     span {
-      width: 620px;
+      width: 720px;
       word-break: break-all;
       background: #f5f6f7;
       border-radius: 8px;

@@ -82,7 +82,7 @@ export default {
   },
   chain: {
     btc: 'BTC',
-    ethereum: 'ETH / EVMs',
+    ethereum: 'ETH',
     dogecoin: 'Dogecoin',
     eos: 'EOS',
     iost: 'IOST',
@@ -108,10 +108,12 @@ export default {
     tips:
       '공개키와 개인키를 생성하기 위해서는 네트워크 연결을 끊는 것이 좋습니다.생성 후에는 반드시 개인키 정보를 기록하여 보관하시기 바랍니다.개인키 정보를 누구에게도 공개하거나 공개하지 마십시오!',
     githubUrl: '오픈 소스 주소',
+    uncompressPublicKey: '압축되지 않은 공개 키',
     publicKey: '공개 키',
     privateKey: '프라이빗 키',
     gen: '생성',
     genFromMnemonic: 'Generate From Mnemonic',
+    mnemonic: 'Mnemonic',
     copy: '복사',
     copied: '복사 완료!',
     failed: '복사 실패!',
