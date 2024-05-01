@@ -849,7 +849,10 @@ export default {
 
     genBinanceKey() {
       this.binancePrivateKey = BncClient.crypto.generatePrivateKey();
-      this.binancePublicKey = BncClient.crypto.getPublicKeyFromPrivateKey(this.binancePrivateKey);
+      const publicKey = BncClient.crypto.getPublicKeyFromPrivateKey(this.binancePrivateKey);
+      this.binancePublicKey = compressPublicKey(publicKey)
+      // console.log("publicKey:", publicKey)
+      // console.log("this.binancePublicKey:", this.binancePublicKey)
       this.binanceAddress = BncClient.crypto.getAddressFromPrivateKey(
         this.binancePrivateKey,
         'bnb'
@@ -867,7 +870,10 @@ export default {
         return
       }
       this.binancePrivateKey = BncClient.crypto.getPrivateKeyFromMnemonic(mnemonic);
-      this.binancePublicKey = BncClient.crypto.getPublicKeyFromPrivateKey(this.binancePrivateKey);
+      const publicKey = BncClient.crypto.getPublicKeyFromPrivateKey(this.binancePrivateKey);
+      this.binancePublicKey = compressPublicKey(publicKey)
+      // console.log("publicKey:", publicKey)
+      // console.log("this.binancePublicKey:", this.binancePublicKey)
       this.binanceAddress = BncClient.crypto.getAddressFromPrivateKey(
         this.binancePrivateKey,
         'bnb'
@@ -892,8 +898,10 @@ export default {
       // console.log('randomWallet:', randomWallet);
       this.ethAddress = randomWallet.address;
       this.ethPrivateKey = randomWallet.privateKey;
-      // this.ethPublicKey = randomWallet.publicKey.toString('hex');
-      this.ethPublicKey = ethers.utils.computePublicKey(randomWallet.privateKey, true);
+      // this.ethPublicKey = ethers.utils.computePublicKey(randomWallet.privateKey, true);
+      const publicKey = randomWallet.publicKey.toString('hex');
+      this.ethPublicKey = '0x' + compressPublicKey(publicKey)
+      // console.log('publicKey:', publicKey);
       // console.log('this.ethPublicKey:', this.ethPublicKey);
 
       // var account = this.web3.eth.accounts.create();
@@ -916,8 +924,10 @@ export default {
       // console.log('walletMnemonic:', walletMnemonic);
       this.ethAddress = walletMnemonic.address;
       this.ethPrivateKey = walletMnemonic.privateKey;
-      // this.ethPublicKey = walletMnemonic.publicKey.toString('hex');
-      this.ethPublicKey = ethers.utils.computePublicKey(walletMnemonic.privateKey,true);
+      // this.ethPublicKey = ethers.utils.computePublicKey(walletMnemonic.privateKey,true);
+      const publicKey = walletMnemonic.publicKey.toString('hex');
+      this.ethPublicKey = '0x' + compressPublicKey(publicKey)
+      // console.log('publicKey:', publicKey);
       // console.log('this.ethPublicKey:', this.ethPublicKey);
 
       // var account = this.web3.eth.accounts.create();
@@ -1294,18 +1304,20 @@ function isPrivateKey(input) {
   return hex.length === 64 && /^[0-9a-fA-F]+$/.test(hex);
 }
 function compressPublicKey(publicKey) {
-  // if (!/^0x[0-9a-fA-F]{128}$/.test(publicKey)) {
-  //   throw new Error('Invalid public key format');
-  // }
-
-  let compressedKey = publicKey.slice(2); // 移除0x前缀
-
-  // 如果长度为奇数，在中间添加0，变为偶数长度
-  if (compressedKey.length % 2 === 1) {
-    compressedKey = '0' + compressedKey;
+  publicKey = publicKey.replace('0x', '').replace('0X', '').replace(' ', '')
+  console.log("publicKey.length:", publicKey.length)
+  var compressedKeyIndex;
+  if (publicKey.substring(0, 2) !== "04") {
+    throw "Invalid public key format";
   }
-
-  return compressedKey.toLowerCase(); // 转换为小写
+  if (parseInt(publicKey.substring(128, 130), 16) % 2 !== 0) {
+    compressedKeyIndex = "03";
+  } else {
+    compressedKeyIndex = "02";
+  }
+  var result = compressedKeyIndex + publicKey.substring(2, 66);
+  return result;
+  // return result.toLowerCase(); // 转换为小写
 }
 </script>
 
