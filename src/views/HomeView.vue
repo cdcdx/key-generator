@@ -44,7 +44,7 @@
               <div class="warn">{{ $t('main.tips') }}</div>
               <div class="key-list">
                 <div class="key-box btc" v-show="network === 'BTC'">
-                  <KeyItem :title="$t('main.normalAddr')" :value="btcAddress" />
+                  <KeyItem :title="'P2PKH ' + $t('main.address')" :value="btcAddress" />
                   <KeyItem :title="'P2SH ' + $t('main.address')" :value="btcP2SHAddress" />
                   <KeyItem :title="'P2WPK ' + $t('main.address')" :value="btcSegwitAddress" />
                   <KeyItem :title="'Taproot ' + $t('main.address')" :value="btcTaprootAddress" />
@@ -137,7 +137,7 @@
                   <KeyItem :title="$t('main.uncompressPublicKey')" :value="bchUncompressPublicKey" />
                 </div>
                 <div class="key-box cfx" v-show="network === 'CFX'">
-                  <KeyItem :title="$t('main.normalAddr')" :value="cfxAddress" />
+                  <KeyItem :title="$t('main.address')" :value="cfxAddress" />
                   <KeyItem :title="'Conflux Mainnet ' + $t('main.address')" :value="cfxMainnetAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="cfxPrivateKey" />
                   <KeyItem :title="$t('main.publicKey')" :value="cfxPublicKey" />
@@ -177,7 +177,7 @@
       </div>
     </main>
     <!-- <Footer /> -->
-    <div class="change-chain" v-show="isMobileChain">
+    <!-- <div class="change-chain" v-show="isMobileChain">
       <div class="container">
         <div class="title-header">
           <span>{{ $t('main.changeChain') }}</span>
@@ -192,7 +192,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -232,7 +232,7 @@ import { generatePrivateKey, getPublicKey } from 'nostr-tools';
 import TronWeb from 'tronweb';
 import Web3 from 'web3';
 const ethers = require("ethers")
-const ethUtil = require('ethereumjs-util');
+// const ethUtil = require('ethereumjs-util');
 
 const Bech32MaxSize = 5000;
 
@@ -341,7 +341,7 @@ export default {
       ss58: '',
       curIndex: 12,
       isMobileChain: false,
-      mnemonic:''
+      mnemonic: localStorage.getItem('setmnemonic')
     };
   },
 
@@ -517,6 +517,7 @@ export default {
       this.genNostrKey();
     }, 1000);
   },
+
   methods: {
     async genDogeKey() {
       const DOGE_NETWORK = {
@@ -610,12 +611,49 @@ export default {
     },
 
     genConfluxKey() {
-      var account = this.web3.eth.accounts.create();
-      this.cfxAddress = account.address;
-      this.cfxPrivateKey = account.privateKey;
-      this.cfxPublicKey = account.publicKey;
+      const randomWallet = ethers.Wallet.createRandom();
+      this.cfxAddress = randomWallet.address;
+      this.cfxPrivateKey = randomWallet.privateKey;
+      const publicKey = randomWallet.publicKey.toString('hex');
+      this.cfxUncompressPublicKey = publicKey;
+      this.cfxPublicKey = '0x' + compressPublicKey(publicKey);
+      // console.log('publicKey:', publicKey);
+      // console.log('this.ethPublicKey:', this.ethPublicKey);
       this.cfxMainnetAddress = format.address(
-        `0x1${account.address.toLowerCase().slice(3)}`,
+        `0x1${randomWallet.address.toLowerCase().slice(3)}`,
+        1029
+      );
+
+      // var account = this.web3.eth.accounts.create();
+      // this.cfxAddress = account.address;
+      // this.cfxPrivateKey = account.privateKey;
+      // this.cfxMainnetAddress = format.address(
+      //   `0x1${account.address.toLowerCase().slice(3)}`,
+      //   1029
+      // );
+    },
+
+    genConfluxKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        return
+      }
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
+        return
+      }
+      const child = "m/44'/60'/0'/0/0";
+      const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic, child);
+      this.cfxAddress = walletMnemonic.address;
+      this.cfxPrivateKey = walletMnemonic.privateKey;
+      const publicKey = walletMnemonic.publicKey.toString('hex');
+      this.cfxUncompressPublicKey = publicKey;
+      this.cfxPublicKey = '0x' + compressPublicKey(publicKey);
+      // console.log('publicKey:', publicKey);
+      // console.log('this.ethPublicKey:', this.ethPublicKey);
+      this.cfxMainnetAddress = format.address(
+        `0x1${walletMnemonic.address.toLowerCase().slice(3)}`,
         1029
       );
     },
@@ -845,6 +883,23 @@ export default {
       this.aptosPublicKey = account.toPrivateKeyObject().publicKeyHex;
     },
 
+    genAptosKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        return
+      }
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
+        return
+      }
+      const child = "m/44'/637'/0'/0'/0'".toString();
+      const account = AptosAccount.fromDerivePath(child, this.mnemonic);
+      this.aptosAddress = account.authKey().hexString;
+      this.aptosPrivateKey = account.toPrivateKeyObject().privateKeyHex;
+      this.aptosPublicKey = account.toPrivateKeyObject().publicKeyHex;
+    },
+
     genSolanaKey() {
       const account = Keypair.generate();
       this.solanaAddress = account.publicKey.toBase58();
@@ -968,10 +1023,6 @@ export default {
       this.ethPublicKey = '0x' + compressPublicKey(publicKey);
       // console.log('publicKey:', publicKey);
       // console.log('this.ethPublicKey:', this.ethPublicKey);
-
-      // var account = this.web3.eth.accounts.create();
-      // this.ethAddress = account.address;
-      // this.ethPrivateKey = account.privateKey;
     },
 
     genTronKey() {
@@ -1257,6 +1308,8 @@ export default {
     },
 
     onGenerateFromMnemonic() {
+      localStorage.setItem('setmnemonic', this.mnemonic);
+
       switch (this.network) {
         case 'BTC':
           this.genBtcKeyfromMnemonic();
@@ -1298,13 +1351,13 @@ export default {
           this.genJingtumKey();
           break;
         case 'APT':
-          this.genAptosKey();
+          this.genAptosKeyfromMnemonic();
           break;
         case 'BCH':
           this.genBCHKey();
           break;
         case 'CFX':
-          this.genConfluxKey();
+          this.genConfluxKeyfromMnemonic();
           break;
         case 'NOSTR':
           this.genNostrKey();
@@ -1368,16 +1421,18 @@ function compressPublicKey(publicKey) {
   top: 0;
   left: 0;
   width: 100%;
-  height: 64px;
+  height: 74px;
   transform: translate3d(0, -100%, 0);
 
   .mnemonic-name {
-    font-size: 14px;
+    font-size: 16px;
     color: #828282;
   }
 
   .mnemonic-input {
     width: 100%;
+    height: 19px;
+    padding: 8px 10px;
     border-radius: 8px;
     overflow: auto;
     position: absolute;
