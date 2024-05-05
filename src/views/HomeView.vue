@@ -43,117 +43,83 @@
               <div class="title">{{ chainObj[0].name }} keys</div>
               <div class="warn">{{ $t('main.tips') }}</div>
               <div class="key-list">
+                <div class="key-box ethereum" v-show="network === 'ETH'">
+                  <KeyItem :title="$t('main.publicKey')" :value="ethAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="ethPrivateKey" />
+                </div>
+                <div class="key-box eos" v-show="network === 'EOS'">
+                  <KeyItem :title="$t('main.publicKey')" :value="eosAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="eosPrivateKey" />
+                </div>
+                <div class="key-box dogecoin" v-show="network === 'DOGE'">
+                  <KeyItem :title="$t('main.publicKey')" :value="dogeAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="dogePrivateKey" />
+                </div>
+                <div class="key-box iost" v-show="network === 'IOST'">
+                  <KeyItem :title="$t('main.publicKey')" :value="iostAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="iostPrivateKey" />
+                </div>
+                <div class="key-box tron" v-show="network === 'TRX'">
+                  <KeyItem :title="$t('main.publicKey')" :value="tronAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="tronPrivateKey" />
+                </div>
                 <div class="key-box btc" v-show="network === 'BTC'">
-                  <KeyItem :title="'P2PKH ' + $t('main.address')" :value="btcAddress" />
+                  <KeyItem :title="$t('main.normalAddr')" :value="btcAddress" />
                   <KeyItem :title="'P2SH ' + $t('main.address')" :value="btcP2SHAddress" />
                   <KeyItem :title="'P2WPK ' + $t('main.address')" :value="btcSegwitAddress" />
                   <KeyItem :title="'Taproot ' + $t('main.address')" :value="btcTaprootAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="btcPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="btcPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="btcUncompressPublicKey" />
+                </div>
+                <div class="key-box cosmos" v-show="network === 'ATOM'">
+                  <KeyItem :title="$t('main.publicKey')" :value="cosmosAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="cosmosPrivateKey" />
+                </div>
+                <div class="key-box binance" v-show="network === 'BNB'">
+                  <KeyItem :title="$t('main.publicKey')" :value="binanceAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="binancePrivateKey" />
+                </div>
+                <div class="key-box nervos" v-show="network === 'CKB'">
+                  <KeyItem :title="$t('main.publicKey')" :value="nervosAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="nervosPrivateKey" />
+                </div>
+                <div class="key-box jingtum" v-show="network === 'JMB'">
+                  <KeyItem :title="$t('main.publicKey')" :value="jingtumAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="jingtumPrivateKey" />
+                </div>
+                <div class="key-box solana" v-show="network === 'SOL'">
+                  <KeyItem :title="$t('main.publicKey')" :value="solanaAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="solanaPrivateKey" />
+                </div>
+                <div class="key-box aptos" v-show="network === 'APT'">
+                  <KeyItem :title="$t('main.publicKey')" :value="aptosAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="aptosPrivateKey" />
+                </div>
+                <div class="key-box polkadot" v-show="network === 'DOT'">
+                  <KeyItem :title="$t('main.publicKey')" :value="polkadotAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="polkadotPrivateKey" />
+                </div>
+                <div class="key-box bch" v-show="network === 'BCH'">
+                  <KeyItem :title="$t('main.publicKey')" :value="bchAddress" />
+                  <KeyItem :title="$t('main.privateKey')" :value="bchPrivateKey" />
                 </div>
                 <div class="key-box ltc" v-show="network === 'LTC'">
                   <KeyItem :title="'SegWit ' + $t('main.address')" :value="ltcAddress" />
                   <KeyItem :title="'Legacy ' + $t('main.address')" :value="ltcP2SHAddress" />
                   <KeyItem :title="'Native SegWit ' + $t('main.address')" :value="ltcNativeSegwitAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="ltcPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="ltcPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="ltcUncompressPublicKey" />
-                </div>
-                <div class="key-box dogecoin" v-show="network === 'DOGE'">
-                  <KeyItem :title="$t('main.address')" :value="dogeAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="dogePrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="dogePublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="dogeUncompressPublicKey" />
-                </div>
-                <div class="key-box polkadot" v-show="network === 'DOT'">
-                  <KeyItem :title="$t('main.address')" :value="polkadotAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="polkadotPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="polkadotPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="polkadotUncompressPublicKey" />
-                </div>
-                <div class="key-box solana" v-show="network === 'SOL'">
-                  <KeyItem :title="$t('main.address')" :value="solanaAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="solanaPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="solanaPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="solanaUncompressPublicKey" />
-                </div>
-                <div class="key-box tron" v-show="network === 'TRX'">
-                  <KeyItem :title="$t('main.address')" :value="tronAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="tronPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="tronPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="tronUncompressPublicKey" />
-                </div>
-                <div class="key-box ethereum" v-show="network === 'ETH'">
-                  <KeyItem :title="$t('main.address')" :value="ethAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="ethPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="ethPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="ethUncompressPublicKey" />
-                </div>
-                <div class="key-box eos" v-show="network === 'EOS'">
-                  <KeyItem :title="$t('main.address')" :value="eosAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="eosPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="eosPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="eosUncompressPublicKey" />
-                </div>
-                <div class="key-box iost" v-show="network === 'IOST'">
-                  <KeyItem :title="$t('main.address')" :value="iostAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="iostPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="iostPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="iostUncompressPublicKey" />
-                </div>
-                <div class="key-box cosmos" v-show="network === 'ATOM'">
-                  <KeyItem :title="$t('main.address')" :value="cosmosAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="cosmosPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="cosmosPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="cosmosUncompressPublicKey" />
-                </div>
-                <div class="key-box binance" v-show="network === 'BNB'">
-                  <KeyItem :title="$t('main.address')" :value="binanceAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="binancePrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="binancePublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="binanceUncompressPublicKey" />
-                </div>
-                <div class="key-box nervos" v-show="network === 'CKB'">
-                  <KeyItem :title="$t('main.address')" :value="nervosAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="nervosPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="nervosPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="nervosUncompressPublicKey" />
-                </div>
-                <div class="key-box jingtum" v-show="network === 'JMB'">
-                  <KeyItem :title="$t('main.address')" :value="jingtumAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="jingtumPrivateKey" />
-                </div>
-                <div class="key-box aptos" v-show="network === 'APT'">
-                  <KeyItem :title="$t('main.address')" :value="aptosAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="aptosPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="aptosPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="aptosUncompressPublicKey" />
-                </div>
-                <div class="key-box bch" v-show="network === 'BCH'">
-                  <KeyItem :title="$t('main.address')" :value="bchAddress" />
-                  <KeyItem :title="$t('main.privateKey')" :value="bchPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="bchPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="bchUncompressPublicKey" />
                 </div>
                 <div class="key-box cfx" v-show="network === 'CFX'">
-                  <KeyItem :title="$t('main.address')" :value="cfxAddress" />
+                  <KeyItem :title="$t('main.normalAddr')" :value="cfxAddress" />
                   <KeyItem :title="'Conflux Mainnet ' + $t('main.address')" :value="cfxMainnetAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="cfxPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="cfxPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="cfxUncompressPublicKey" />
                 </div>
                 <div class="key-box nostr" v-show="network === 'NOSTR'">
-                  <KeyItem :title="$t('main.address')" :value="nostrAddress" />
+                  <KeyItem :title="$t('main.publicKey')" :value="nostrAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="nostrPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="nostrPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="nostrUncompressPublicKey" />
                 </div>
                 <div class="key-box sui" v-show="network === 'SUI'">
-                  <KeyItem :title="$t('main.address')" :value="suiAddress" />
+                  <KeyItem :title="$t('main.publicKey')" :value="suiAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="suiPrivateKey" />
-                  <KeyItem :title="$t('main.publicKey')" :value="suiPublicKey" />
-                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="suiUncompressPublicKey" />
                 </div>
               </div>
             </div>
@@ -355,25 +321,9 @@ export default {
           name: this.$t('chain.btc'),
         },
         {
-          network: 'LTC',
-          icon: require('../assets/main/ltc.png'),
-          name: this.$t('chain.ltc'),
-        },
-        {
-          network: 'DOGE',
-          icon: require('../assets/main/dogecoin.png'),
-          name: this.$t('chain.dogecoin'),
-        },
-        {
-          network: 'DOT',
-          ss58: '0',
-          icon: require('../assets/main/Polkadot.png'),
-          name: this.$t('chain.polkadot'),
-        },
-        {
-          network: 'SOL',
-          icon: require('../assets/main/solana.png'),
-          name: this.$t('chain.solana'),
+          network: 'ETH',
+          icon: require('../assets/main/eth.png'),
+          name: this.$t('chain.ethereum'),
         },
         {
           chainId: 728126428,
@@ -382,9 +332,9 @@ export default {
           name: this.$t('chain.tron'),
         },
         {
-          network: 'ETH',
-          icon: require('../assets/main/eth.png'),
-          name: this.$t('chain.ethereum'),
+          network: 'SOL',
+          icon: require('../assets/main/solana.png'),
+          name: this.$t('chain.solana'),
         },
         {
           network: 'APT',
@@ -403,6 +353,11 @@ export default {
           name: this.$t('chain.conflux'),
         },
         {
+          network: 'DOGE',
+          icon: require('../assets/main/dogecoin.png'),
+          name: this.$t('chain.dogecoin'),
+        },
+        {
           network: 'EOS',
           icon: require('../assets/main/eos.png'),
           name: this.$t('chain.eos'),
@@ -416,6 +371,12 @@ export default {
           network: 'IOST',
           icon: require('../assets/main/iost.png'),
           name: this.$t('chain.iost'),
+        },
+        {
+          network: 'DOT',
+          ss58: '0',
+          icon: require('../assets/main/Polkadot.png'),
+          name: this.$t('chain.polkadot'),
         },
         {
           network: 'CKB',
@@ -436,6 +397,11 @@ export default {
           network: 'BCH',
           icon: require('../assets/main/bch.png'),
           name: this.$t('chain.bch'),
+        },
+        {
+          network: 'LTC',
+          icon: require('../assets/main/ltc.png'),
+          name: this.$t('chain.ltc'),
         },
         {
           network: 'JMB',
@@ -490,32 +456,45 @@ export default {
 
   mounted() {
     setTimeout(() => {
-      this.genBtcKey();
-      // this.genBtcKeyfromMnemonic();
-      this.genLTCKey();
-      // this.genLTCKeyfromMnemonic();
-      this.genDogeKey();
-      // this.genDogeKeyfromMnemonic();
-      this.genPolkadotKey();
-      // this.genPolkadotKeyfromMnemonic();
-      this.genSolanaKey();
-      // this.genSolanaKeyfromMnemonic();
-      this.genTronKey();
-      // this.genTronKeyfromMnemonic();
-      this.genEosKey();
-      this.genEthKey();
-      // this.genEthKeyfromMnemonic();
-      this.genIostKey();
-      this.genNervosKey();
-      this.genBinanceKey();
-      // this.genBinanceKeyfromMnemonic();
-      this.genCosmosKey();
-      this.genJingtumKey();
-      this.genAptosKey();
-      this.genBCHKey();
-      this.genConfluxKey();
-      this.genSuiKey();
-      this.genNostrKey();
+      if (this.mnemonic == null) {
+        this.genEosKey();
+        this.genEthKey();
+        this.genIostKey();
+        this.genBtcKey();
+        this.genNervosKey();
+        this.genTronKey();
+        this.genBinanceKey();
+        this.genCosmosKey();
+        this.genJingtumKey();
+        this.genSolanaKey();
+        this.genAptosKey();
+        this.genPolkadotKey();
+        this.genLTCKey();
+        this.genBCHKey();
+        this.genConfluxKey();
+        this.genSuiKey();
+        this.genNostrKey();
+        this.genDogeKey();
+      } else {
+        this.genEosKeyfromMnemonic();
+        this.genEthKeyfromMnemonic();
+        this.genIostKeyfromMnemonic();
+        this.genBtcKeyfromMnemonic();
+        this.genNervosKeyfromMnemonic();
+        this.genTronKeyfromMnemonic();
+        this.genBinanceKeyfromMnemonic();
+        this.genCosmosKeyfromMnemonic();
+        this.genJingtumKey();
+        this.genSolanaKeyfromMnemonic();
+        this.genAptosKeyfromMnemonic();
+        this.genPolkadotKeyfromMnemonic();
+        this.genLTCKeyfromMnemonic();
+        this.genBCHKeyfromMnemonic();
+        this.genConfluxKeyfromMnemonic();
+        this.genSuiKeyfromMnemonic();
+        this.genNostrKeyfromMnemonic();
+        this.genDogeKeyfromMnemonic(); 
+      }
     }, 1000);
   },
 
@@ -582,6 +561,7 @@ export default {
       this.dogePublicKey = Buffer.from(doge_keypair.publicKey).toString('hex');
     },
 
+    // ---------- 
     genNostrKey() {
       let sk = generatePrivateKey(); // `sk` is a hex string
       let pk = getPublicKey(sk); // `pk` is a hex string
@@ -624,6 +604,7 @@ export default {
       return bech32.encode(prefix, words, Bech32MaxSize);
     },
 
+    // ---------- 
     genSuiKey() {
       const keypair = new Ed25519Keypair();
       this.suiAddress = keypair.getPublicKey().toSuiAddress();
@@ -648,6 +629,7 @@ export default {
       this.suiPrivateKey = toHEX(keypair.keypair.secretKey.slice(0, 32));
     },
 
+    // ---------- 
     genConfluxKey() {
       const randomWallet = ethers.Wallet.createRandom();
       this.cfxAddress = randomWallet.address;
@@ -696,6 +678,7 @@ export default {
       );
     },
 
+    // ---------- 
     genBCHKey() {
       let privateKey = new BCHPrivateKey();
       // console.log("privateKey:",privateKey);
@@ -729,6 +712,7 @@ export default {
       this.bchAddress = address.toString().slice(12);
     },
 
+    // ---------- 
     // generate LTC path
     getLTCPath(type) {
       let path = '';
@@ -893,6 +877,7 @@ export default {
       }
     },
 
+    // ---------- 
     async genPolkadotKey() {
       const mnemonic = mnemonicGenerate(12);
       // PrivateKey
@@ -938,6 +923,7 @@ export default {
       this.polkadotPublicKey = u8aToHex(pair.publicKey);
     },
 
+    // ---------- 
     genAptosKey() {
       const account = new AptosAccount();
       this.aptosAddress = account.authKey().hexString;
@@ -962,6 +948,7 @@ export default {
       this.aptosPublicKey = account.toPrivateKeyObject().publicKeyHex;
     },
 
+    // ---------- 
     genSolanaKey() {
       const account = Keypair.generate();
       this.solanaAddress = account.publicKey.toBase58();
@@ -991,6 +978,7 @@ export default {
       this.solanaPublicKey = account.publicKey;
     },
 
+    // ---------- 
     genEosKey() {
       ecc.randomKey().then((privateKey) => {
         this.eosPrivateKey = privateKey;
@@ -1016,6 +1004,7 @@ export default {
       this.eosAddress = ecc.privateToPublic(privateKey);
     },
 
+    // ---------- 
     genBinanceKey() {
       this.binancePrivateKey = BncClient.crypto.generatePrivateKey();
       const publicKey = BncClient.crypto.getPublicKeyFromPrivateKey(this.binancePrivateKey);
@@ -1051,12 +1040,14 @@ export default {
       );
     },
 
+    // ---------- 
     genJingtumKey() {
       let wallet = Wallet.generate();
       this.jingtumAddress = wallet.address;
       this.jingtumPrivateKey = wallet.secret;
     },
 
+    // ---------- 
     genCosmosKey() {
       let account = this.crypto.create();
       this.cosmosAddress = account.address;
@@ -1081,6 +1072,7 @@ export default {
       this.cosmosPublicKey = account.publicKey;
     },
 
+    // ---------- 
     genEthKey() {
       const randomWallet = ethers.Wallet.createRandom();
       // console.log('randomWallet:', randomWallet);
@@ -1121,6 +1113,7 @@ export default {
       // console.log('this.ethPublicKey:', this.ethPublicKey);
     },
 
+    // ---------- 
     genTronKey() {
       const mnemonic = mnemonicGenerate(12);
       const seed = mnemonicToSeedSync(mnemonic);
@@ -1160,6 +1153,7 @@ export default {
       this.tronPublicKey = publicKey;
     },
 
+    // ---------- 
     genIostKey() {
       var kp = iost.KeyPair.newKeyPair();
       this.iostPrivateKey = kp.B58SecKey();
@@ -1184,6 +1178,7 @@ export default {
       this.iostAddress = kp.B58PubKey();
     },
 
+    // ---------- 
     // generate path
     getBtcPath(type) {
       let path = '';
@@ -1351,6 +1346,7 @@ export default {
       }
     },
 
+    // ---------- 
     genNervosKey() {
       let privateKey = ec.genKeyPair().priv;
       let address = new Address(privateKey, { prefix: 'ckb' });
@@ -1379,34 +1375,26 @@ export default {
       this.nervosAddress = address.value;
     },
 
+    // ---------- ---------- ----------
     onGenerate() {
       switch (this.network) {
-        case 'BTC':
-          this.genBtcKey();
-          break;
-        case 'LTC':
-          this.genLTCKey();
-          break;
-        case 'DOGE':
-          this.genDogeKey();
-          break;
-        case 'DOT':
-          this.genPolkadotKey();
-          break;
-        case 'SOL':
-          this.genSolanaKey();
-          break;
-        case 'TRX':
-          this.genTronKey();
+        case 'ETH':
+          this.genEthKey();
           break;
         case 'EOS':
           this.genEosKey();
           break;
-        case 'ETH':
-          this.genEthKey();
+        case 'DOGE':
+          this.genDogeKey();
           break;
         case 'IOST':
           this.genIostKey();
+          break;
+        case 'TRX':
+          this.genTronKey();
+          break;
+        case 'BTC':
+          this.genBtcKey();
           break;
         case 'ATOM':
           this.genCosmosKey();
@@ -1420,11 +1408,20 @@ export default {
         case 'JMB':
           this.genJingtumKey();
           break;
+        case 'SOL':
+          this.genSolanaKey();
+          break;
         case 'APT':
           this.genAptosKey();
           break;
+        case 'DOT':
+          this.genPolkadotKey();
+          break;
         case 'BCH':
           this.genBCHKey();
+          break;
+        case 'LTC':
+          this.genLTCKey();
           break;
         case 'CFX':
           this.genConfluxKey();
@@ -1444,32 +1441,23 @@ export default {
       localStorage.setItem('setmnemonic', this.mnemonic);
 
       switch (this.network) {
-        case 'BTC':
-          this.genBtcKeyfromMnemonic();
-          break;
-        case 'LTC':
-          this.genLTCKeyfromMnemonic();
-          break;
-        case 'DOGE':
-          this.genDogeKeyfromMnemonic();
-          break;
-        case 'DOT':
-          this.genPolkadotKeyfromMnemonic();
-          break;
-        case 'SOL':
-          this.genSolanaKeyfromMnemonic();
-          break;
-        case 'TRX':
-          this.genTronKeyfromMnemonic();
+        case 'ETH':
+          this.genEthKeyfromMnemonic();
           break;
         case 'EOS':
           this.genEosKeyfromMnemonic();
           break;
-        case 'ETH':
-          this.genEthKeyfromMnemonic();
+        case 'DOGE':
+          this.genDogeKeyfromMnemonic();
           break;
         case 'IOST':
           this.genIostKeyfromMnemonic();
+          break;
+        case 'TRX':
+          this.genTronKeyfromMnemonic();
+          break;
+        case 'BTC':
+          this.genBtcKeyfromMnemonic();
           break;
         case 'ATOM':
           this.genCosmosKeyfromMnemonic();
@@ -1483,11 +1471,20 @@ export default {
         case 'JMB':
           this.genJingtumKey();
           break;
+        case 'SOL':
+          this.genSolanaKeyfromMnemonic();
+          break;
         case 'APT':
           this.genAptosKeyfromMnemonic();
           break;
+        case 'DOT':
+          this.genPolkadotKeyfromMnemonic();
+          break;
         case 'BCH':
           this.genBCHKeyfromMnemonic();
+          break;
+        case 'LTC':
+          this.genLTCKeyfromMnemonic();
           break;
         case 'CFX':
           this.genConfluxKeyfromMnemonic();
