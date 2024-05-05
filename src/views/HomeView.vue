@@ -219,6 +219,7 @@ import {
 Address as BCHAddress,
 PrivateKey as BCHPrivateKey,
 PublicKey as BCHPublicKey,
+crypto as BCHcrypto,
 } from 'bitcore-lib-cash';
 import bs58 from 'bs58';
 import { ec as EC } from 'elliptic';
@@ -231,7 +232,7 @@ import { format } from 'js-conflux-sdk';
 import { generatePrivateKey, getPublicKey } from 'nostr-tools';
 import TronWeb from 'tronweb';
 import Web3 from 'web3';
-const ethers = require("ethers")
+const ethers = require("ethers");
 // const ethUtil = require('ethereumjs-util');
 
 const Bech32MaxSize = 5000;
@@ -341,7 +342,7 @@ export default {
       ss58: '',
       curIndex: 12,
       isMobileChain: false,
-      mnemonic: localStorage.getItem('setmnemonic')
+      mnemonic: localStorage.getItem('setmnemonic'),
     };
   },
 
@@ -480,7 +481,7 @@ export default {
     });
 
     this.web3 = new Web3(
-      new Web3.providers.HttpProvider('https://eth49he73m.jccdex.cn')
+      new Web3.providers.HttpProvider('https://eth49he73m.jccdex.cn'),
     );
 
     this.BncClient = BncClient;
@@ -589,6 +590,26 @@ export default {
       this.nostrPublicKey = pk;
     },
 
+    genNostrKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        return
+      }
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
+        return
+      }
+      const child = "m/44'/1237'/0'/0/0";
+      const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic, child);
+      const privateKey = walletMnemonic.privateKey;
+      let sk = privateKey.replace('0x', '').replace('0X', '').replace(' ', ''); // `sk` is a hex string
+      let pk = getPublicKey(sk); // `pk` is a hex string
+      this.nostrPrivateKey = this.nsecEncode(sk);
+      this.nostrAddress = this.npubEncode(pk);
+      this.nostrPublicKey = pk;
+    },
+
     nsecEncode(hex) {
       return this.encodeBytes('nsec', hex);
     },
@@ -605,6 +626,23 @@ export default {
 
     genSuiKey() {
       const keypair = new Ed25519Keypair();
+      this.suiAddress = keypair.getPublicKey().toSuiAddress();
+      this.suiPublicKey = keypair.getPublicKey();
+      this.suiPrivateKey = toHEX(keypair.keypair.secretKey.slice(0, 32));
+    },
+
+    genSuiKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        return
+      }
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
+        return
+      }
+      const child = "m/44'/784'/0'/0'/0'".toString();
+      const keypair = Ed25519Keypair.deriveKeypair(mnemonic, child);
       this.suiAddress = keypair.getPublicKey().toSuiAddress();
       this.suiPublicKey = keypair.getPublicKey();
       this.suiPrivateKey = toHEX(keypair.keypair.secretKey.slice(0, 32));
@@ -660,6 +698,30 @@ export default {
 
     genBCHKey() {
       let privateKey = new BCHPrivateKey();
+      // console.log("privateKey:",privateKey);
+      this.bchPrivateKey = privateKey.toWIF();
+      let publicKey = new BCHPublicKey(privateKey);
+      this.bchPublicKey = publicKey.toString();
+      let address = new BCHAddress(publicKey);
+      this.bchAddress = address.toString().slice(12);
+    },
+
+    genBCHKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        return
+      }
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
+        return
+      }
+
+      var value = new Buffer(mnemonic);
+      var hash = BCHcrypto.Hash.sha256(value);
+      var bn = BCHcrypto.BN.fromBuffer(hash);
+      let privateKey = new BCHPrivateKey(bn);
+      // console.log("privateKey:", privateKey);
       this.bchPrivateKey = privateKey.toWIF();
       let publicKey = new BCHPublicKey(privateKey);
       this.bchPublicKey = publicKey.toString();
@@ -937,13 +999,30 @@ export default {
       });
     },
 
+    genEosKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        return
+      }
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
+        return
+      }
+      const seed = mnemonicToSeedSync(mnemonic);
+      const privateKey = ecc.seedPrivate(seed.toString());
+      this.eosPrivateKey = privateKey;
+      this.eosPublicKey = ecc.privateToPublic(privateKey);
+      this.eosAddress = ecc.privateToPublic(privateKey);
+    },
+
     genBinanceKey() {
       this.binancePrivateKey = BncClient.crypto.generatePrivateKey();
       const publicKey = BncClient.crypto.getPublicKeyFromPrivateKey(this.binancePrivateKey);
       this.binanceUncompressPublicKey = publicKey;
       this.binancePublicKey = compressPublicKey(publicKey);
-      // console.log("publicKey:", publicKey)
-      // console.log("this.binancePublicKey:", this.binancePublicKey)
+      // console.log("publicKey:", publicKey);
+      // console.log("this.binancePublicKey:", this.binancePublicKey);
       this.binanceAddress = BncClient.crypto.getAddressFromPrivateKey(
         this.binancePrivateKey,
         'bnb'
@@ -964,8 +1043,8 @@ export default {
       const publicKey = BncClient.crypto.getPublicKeyFromPrivateKey(this.binancePrivateKey);
       this.binanceUncompressPublicKey = publicKey;
       this.binancePublicKey = compressPublicKey(publicKey);
-      // console.log("publicKey:", publicKey)
-      // console.log("this.binancePublicKey:", this.binancePublicKey)
+      // console.log("publicKey:", publicKey);
+      // console.log("this.binancePublicKey:", this.binancePublicKey);
       this.binanceAddress = BncClient.crypto.getAddressFromPrivateKey(
         this.binancePrivateKey,
         'bnb'
@@ -985,8 +1064,25 @@ export default {
       this.cosmosPublicKey = account.publicKey;
     },
 
+    genCosmosKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        return
+      }
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
+        return
+      }
+      const child = "m/44'/60'/0'/0/0".toString();
+      let account = this.crypto.recover(mnemonic, "constants.Language.EN", child);
+      this.cosmosAddress = account.address;
+      this.cosmosPrivateKey = account.privateKey;
+      this.cosmosPublicKey = account.publicKey;
+    },
+
     genEthKey() {
-      const randomWallet = ethers.Wallet.createRandom()
+      const randomWallet = ethers.Wallet.createRandom();
       // console.log('randomWallet:', randomWallet);
       this.ethAddress = randomWallet.address;
       this.ethPrivateKey = randomWallet.privateKey;
@@ -1013,7 +1109,7 @@ export default {
         return
       }
       const child = "m/44'/60'/0'/0/0";
-      const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic, child)
+      const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic, child);
       // console.log('walletMnemonic:', walletMnemonic);
       this.ethAddress = walletMnemonic.address;
       this.ethPrivateKey = walletMnemonic.privateKey;
@@ -1066,6 +1162,23 @@ export default {
 
     genIostKey() {
       var kp = iost.KeyPair.newKeyPair();
+      this.iostPrivateKey = kp.B58SecKey();
+      this.iostPublicKey = kp.B58PubKey();
+      this.iostAddress = kp.B58PubKey();
+    },
+
+    genIostKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        return
+      }
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
+        return
+      }
+      const seed = mnemonicToSeedSync(mnemonic);
+      var kp = new iost.KeyPair(seed);
       this.iostPrivateKey = kp.B58SecKey();
       this.iostPublicKey = kp.B58PubKey();
       this.iostAddress = kp.B58PubKey();
@@ -1246,6 +1359,26 @@ export default {
       this.nervosAddress = address.value;
     },
 
+    genNervosKeyfromMnemonic() {
+      const mnemonic = this.mnemonic;
+      if (!mnemonic) {
+        return
+      }
+      if (!isMnemonic(mnemonic)) {
+        console.log("Input is not a mnemonic");
+        alert("Input is not a mnemonic");
+        return
+      }
+      const child = "m/44'/309'/0'/0/0";
+      const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic, child);
+
+      let privateKey = walletMnemonic.privateKey;
+      let address = new Address(privateKey, { prefix: 'ckb' });
+      this.nervosPrivateKey = '0x' + address.getPrivateKey();
+      this.nervosPublicKey = '0x' + address.publicKey;
+      this.nervosAddress = address.value;
+    },
+
     onGenerate() {
       switch (this.network) {
         case 'BTC':
@@ -1330,22 +1463,22 @@ export default {
           this.genTronKeyfromMnemonic();
           break;
         case 'EOS':
-          this.genEosKey();
+          this.genEosKeyfromMnemonic();
           break;
         case 'ETH':
           this.genEthKeyfromMnemonic();
           break;
         case 'IOST':
-          this.genIostKey();
+          this.genIostKeyfromMnemonic();
           break;
         case 'ATOM':
-          this.genCosmosKey();
+          this.genCosmosKeyfromMnemonic();
           break;
         case 'BNB':
           this.genBinanceKeyfromMnemonic();
           break;
         case 'CKB':
-          this.genNervosKey();
+          this.genNervosKeyfromMnemonic();
           break;
         case 'JMB':
           this.genJingtumKey();
@@ -1354,16 +1487,16 @@ export default {
           this.genAptosKeyfromMnemonic();
           break;
         case 'BCH':
-          this.genBCHKey();
+          this.genBCHKeyfromMnemonic();
           break;
         case 'CFX':
           this.genConfluxKeyfromMnemonic();
           break;
         case 'NOSTR':
-          this.genNostrKey();
+          this.genNostrKeyfromMnemonic();
           break;
         case 'SUI':
-          this.genSuiKey();
+          this.genSuiKeyfromMnemonic();
           break;
         default:
           break;
@@ -1397,8 +1530,8 @@ function isPrivateKey(input) {
   return hex.length === 64 && /^[0-9a-fA-F]+$/.test(hex);
 }
 function compressPublicKey(publicKey) {
-  publicKey = publicKey.replace('0x', '').replace('0X', '').replace(' ', '')
-  console.log("publicKey.length:", publicKey.length)
+  publicKey = publicKey.replace('0x', '').replace('0X', '').replace(' ', '');
+  console.log("publicKey.length:", publicKey.length);
   var compressedKeyIndex;
   if (publicKey.substring(0, 2) !== "04") {
     throw "Invalid public key format";
