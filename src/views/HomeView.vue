@@ -923,6 +923,8 @@ export default {
         ss58Format: '0',
         type: 'sr25519',
       });
+      // const pair = keyring.addFromMnemonic(mnemonic);
+      // const pair = keyring.addFromSeed(seed);
       const pair = keyring.addFromUri(mnemonic);
       this.polkadotAddress = pair.address;
       this.polkadotPublicKey = u8aToHex(pair.publicKey);
@@ -952,6 +954,8 @@ export default {
         ss58Format: '0',
         type: 'sr25519',
       });
+      // const pair = keyring.addFromMnemonic(mnemonic);
+      // const pair = keyring.addFromSeed(seed);
       const pair = keyring.addFromUri(mnemonic);
       this.polkadotAddress = pair.address;
       this.polkadotPublicKey = u8aToHex(pair.publicKey);
