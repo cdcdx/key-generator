@@ -44,82 +44,116 @@
               <div class="warn">{{ $t('main.tips') }}</div>
               <div class="key-list">
                 <div class="key-box ethereum" v-show="network === 'ETH'">
-                  <KeyItem :title="$t('main.publicKey')" :value="ethAddress" />
+                  <KeyItem :title="$t('main.address')" :value="ethAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="ethPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="ethPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="ethUncompressPublicKey" />
                 </div>
                 <div class="key-box eos" v-show="network === 'EOS'">
-                  <KeyItem :title="$t('main.publicKey')" :value="eosAddress" />
+                  <KeyItem :title="$t('main.address')" :value="eosAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="eosPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="eosPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="eosUncompressPublicKey" />
                 </div>
                 <div class="key-box dogecoin" v-show="network === 'DOGE'">
-                  <KeyItem :title="$t('main.publicKey')" :value="dogeAddress" />
+                  <KeyItem :title="$t('main.address')" :value="dogeAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="dogePrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="dogePublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="dogeUncompressPublicKey" />
                 </div>
                 <div class="key-box iost" v-show="network === 'IOST'">
-                  <KeyItem :title="$t('main.publicKey')" :value="iostAddress" />
+                  <KeyItem :title="$t('main.address')" :value="iostAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="iostPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="iostPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="iostUncompressPublicKey" />
                 </div>
                 <div class="key-box tron" v-show="network === 'TRX'">
-                  <KeyItem :title="$t('main.publicKey')" :value="tronAddress" />
+                  <KeyItem :title="$t('main.address')" :value="tronAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="tronPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="tronPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="tronUncompressPublicKey" />
                 </div>
                 <div class="key-box btc" v-show="network === 'BTC'">
-                  <KeyItem :title="$t('main.normalAddr')" :value="btcAddress" />
+                  <KeyItem :title="'P2PKH ' + $t('main.address')" :value="btcAddress" />
                   <KeyItem :title="'P2SH ' + $t('main.address')" :value="btcP2SHAddress" />
                   <KeyItem :title="'P2WPK ' + $t('main.address')" :value="btcSegwitAddress" />
                   <KeyItem :title="'Taproot ' + $t('main.address')" :value="btcTaprootAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="btcPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="btcPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="btcUncompressPublicKey" />
                 </div>
                 <div class="key-box cosmos" v-show="network === 'ATOM'">
-                  <KeyItem :title="$t('main.publicKey')" :value="cosmosAddress" />
+                  <KeyItem :title="$t('main.address')" :value="cosmosAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="cosmosPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="cosmosPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="cosmosUncompressPublicKey" />
                 </div>
                 <div class="key-box binance" v-show="network === 'BNB'">
-                  <KeyItem :title="$t('main.publicKey')" :value="binanceAddress" />
+                  <KeyItem :title="$t('main.address')" :value="binanceAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="binancePrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="binancePublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="binanceUncompressPublicKey" />
                 </div>
                 <div class="key-box nervos" v-show="network === 'CKB'">
-                  <KeyItem :title="$t('main.publicKey')" :value="nervosAddress" />
+                  <KeyItem :title="$t('main.address')" :value="nervosAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="nervosPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="nervosPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="nervosUncompressPublicKey" />
                 </div>
                 <div class="key-box jingtum" v-show="network === 'JMB'">
                   <KeyItem :title="$t('main.publicKey')" :value="jingtumAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="jingtumPrivateKey" />
                 </div>
                 <div class="key-box solana" v-show="network === 'SOL'">
-                  <KeyItem :title="$t('main.publicKey')" :value="solanaAddress" />
+                  <KeyItem :title="$t('main.address')" :value="solanaAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="solanaPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="solanaPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="solanaUncompressPublicKey" />
                 </div>
                 <div class="key-box aptos" v-show="network === 'APT'">
-                  <KeyItem :title="$t('main.publicKey')" :value="aptosAddress" />
+                  <KeyItem :title="$t('main.address')" :value="aptosAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="aptosPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="aptosPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="aptosUncompressPublicKey" />
                 </div>
                 <div class="key-box polkadot" v-show="network === 'DOT'">
-                  <KeyItem :title="$t('main.publicKey')" :value="polkadotAddress" />
+                  <KeyItem :title="$t('main.address')" :value="polkadotAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="polkadotPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="polkadotPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="polkadotUncompressPublicKey" />
                 </div>
                 <div class="key-box bch" v-show="network === 'BCH'">
-                  <KeyItem :title="$t('main.publicKey')" :value="bchAddress" />
+                  <KeyItem :title="$t('main.address')" :value="bchAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="bchPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="bchPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="bchUncompressPublicKey" />
                 </div>
                 <div class="key-box ltc" v-show="network === 'LTC'">
                   <KeyItem :title="'SegWit ' + $t('main.address')" :value="ltcAddress" />
                   <KeyItem :title="'Legacy ' + $t('main.address')" :value="ltcP2SHAddress" />
                   <KeyItem :title="'Native SegWit ' + $t('main.address')" :value="ltcNativeSegwitAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="ltcPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="ltcPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="ltcUncompressPublicKey" />
                 </div>
                 <div class="key-box cfx" v-show="network === 'CFX'">
-                  <KeyItem :title="$t('main.normalAddr')" :value="cfxAddress" />
+                  <KeyItem :title="$t('main.address')" :value="cfxAddress" />
                   <KeyItem :title="'Conflux Mainnet ' + $t('main.address')" :value="cfxMainnetAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="cfxPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="cfxPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="cfxUncompressPublicKey" />
                 </div>
                 <div class="key-box nostr" v-show="network === 'NOSTR'">
-                  <KeyItem :title="$t('main.publicKey')" :value="nostrAddress" />
+                  <KeyItem :title="$t('main.address')" :value="nostrAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="nostrPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="nostrPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="nostrUncompressPublicKey" />
                 </div>
                 <div class="key-box sui" v-show="network === 'SUI'">
-                  <KeyItem :title="$t('main.publicKey')" :value="suiAddress" />
+                  <KeyItem :title="$t('main.address')" :value="suiAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="suiPrivateKey" />
+                  <KeyItem :title="$t('main.publicKey')" :value="suiPublicKey" />
+                  <KeyItem :title="$t('main.uncompressPublicKey')" :value="suiUncompressPublicKey" />
                 </div>
               </div>
             </div>
