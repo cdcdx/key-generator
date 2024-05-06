@@ -342,7 +342,7 @@ export default {
       ss58: '',
       curIndex: 12,
       isMobileChain: false,
-      mnemonic: localStorage.getItem('setmnemonic'),
+      mnemonic: localStorage.getItem('setmnemonic'),  // cookie
     };
   },
 
@@ -1472,7 +1472,7 @@ export default {
     },
 
     onGenerateFromMnemonic() {
-      localStorage.setItem('setmnemonic', this.mnemonic);
+      localStorage.setItem('setmnemonic', this.mnemonic);  // cookie
 
       switch (this.network) {
         case 'ETH':
