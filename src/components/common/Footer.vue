@@ -2,7 +2,6 @@
   <div class="footer">
     <div class="content">
       <div class="follow-wrap">
-        <img class="logo" src="../../assets/logo-w.png" />
         <div class="footer-follows">
           <div
             class="footer-follow"
@@ -19,46 +18,6 @@
         </div>
         <div class="copyright">© TokenPocket Foundation Ltd.</div>
       </div>
-      <div class="footer-wrap">
-        <div
-          v-for="(item, index) in footerList"
-          :key="index"
-          class="footer-list"
-          :class="{
-            'lang-wrap':
-              $i18n.locale === 'ru' ||
-              $i18n.locale === 'es' ||
-              $i18n.locale === 'fil' ||
-              $i18n.locale === 'ja' ||
-              $i18n.locale === 'vi' ||
-              $i18n.locale === 'th' ||
-              $i18n.locale === 'pt',
-          }"
-        >
-          <div class="title">{{ item.title }}</div>
-
-          <div class="footer-link-wrap">
-            <div
-              class="footer-link"
-              v-for="(data, dataIndex) in item.data"
-              :key="dataIndex"
-              :class="{
-                width0: data.title === 'Transit Swap' && $i18n.locale === 'zh',
-              }"
-            >
-              <a
-                rel="nofollow"
-                class="pointer ft-14"
-                v-if="!(data.title === 'Transit Swap' && $i18n.locale === 'zh')"
-                :href="data.url"
-                :target="data.local ? '_self' : '_blank'"
-                @click="footerUrl(data, $event)"
-                >{{ data.title }}</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     <Modal v-if="show" @close="close" :url="url" />
   </div>
@@ -66,8 +25,8 @@
 
 <script>
 
-import Modal from './Modal.vue';
 import TpWallet from '../../mixins/TpWallet';
+import Modal from './Modal.vue';
 
 export default {
   name: 'Footer',
@@ -83,207 +42,17 @@ export default {
   computed: {
     followList() {
       return [
-        { url: 'https://twitter.com/TokenPocket_TP' },
-        {
-          isTelegram: true,
-          url:
-            this.$i18n.locale === 'zh' || this.$i18n.locale  === 'zh-tw'
-              ? 'https://t.me/tokenPocket_cn'
-              : this.$i18n.locale  === 'ko'
-              ? 'https://t.me/tokenpocket_kor'
-              : 'https://t.me/tokenpocket_en',
-        },
-        { url: 'https://fans.tokenpocket.pro/' },
-        { url: 'https://www.youtube.com/channel/UCudaS5hcbqUaMtOGHmQ2e0A' },
-        { url: 'https://discord.com/invite/NKPM8TXFQk' },
-        { url: 'https://github.com/TP-Lab' },
-        { url: 'https://tokenpocket-gm.medium.com/' },
+        { url: this.twitterUrl },
+        { url: this.telegramUrl },
+        { url: this.tokenpocketUrl },
+        { url: this.youtubeUrl },
+        { url: this.discordUrl },
+        { url: this.githubUrl },
+        { url: this.mediumUrl },
       ];
     },
     isZH() {
       return this.$i18n.locale === 'zh';
-    },
-    privacyPolicy() {
-      return this.isZH ? '/privacy-zh/index.html' : '/privacy-en/index.html';
-    },
-    terms() {
-      return this.isZH ? '/terms-zh/index.html' : '/terms-en/index.html';
-    },
-    copyright() {
-      return this.isZH
-        ? 'Copyright © 2018-2022 TokenPocket'
-        : 'Copyright © 2022 Singapore TokenPocket Foundation Ltd. All rights reserved.';
-    },
-
-    footerList() {
-      return [
-        {
-          title: this.$t('features.title'),
-          data: [
-            {
-              title: 'Transit Swap',
-              url: 'https://swap.transit.finance/?from=tp#/',
-            },
-            {
-              title: this.$t('features.buyCrypto'),
-              url: 'https://buy.transit.finance/',
-            },
-            {
-              title: this.$t('features.mobileWallet'),
-              url: this.homeUrl,
-            },
-            {
-              title: this.$t('features.hardwareWallet'),
-              url: 'https://www.keypal.pro/'
-            },
-            {
-              title: this.$t('features.extensionWallet'),
-              url: this.extensionUrl,
-            },
-            {
-              local: true,
-              title: this.$t('features.desktop'),
-              url: this.desktopUrl,
-            },
-            {
-              title: this.$t('features.fiveDegrees'),
-              url: 'https://www.5degrees.io/',
-            },
-            // {
-            //   title: this.$t('product.stakeVault'),
-            //   url: this.stakeVaultUrl
-            // },
-            {
-              title: this.$t('features.approvalDetector'),
-              url: this.approvalUrl,
-            },
-            {
-              title: this.$t('features.tokenSecurity'),
-              url: this.tokenSecurityUrl,
-            },
-            {
-              title: this.$t('features.BATCH_SENDER'),
-              url: this.batchSenderUrl,
-            },
-            {
-              title: 'REX',
-              url: this.rexUrl,
-            },
-          ],
-        },
-        {
-          title: this.$t('information.title'),
-          data: [
-            {
-              title: this.$t('information.blockchainGuide'),
-              url: this.isZH
-                ? 'https://github.tokenpocket.pro/BlockchainGuideSeries/#/'
-                : 'https://github.tokenpocket.pro/BlockchainGuideSeries-EN/#/',
-            },
-            {
-              title: this.$t('information.tronWallet'),
-              url: this.isZH
-                ? 'https://github.tokenpocket.pro/BlockchainGuide-TRON/#/'
-                : 'https://github.tokenpocket.pro/BlockchainGuide-TRON-EN/#/',
-            },
-            {
-              title: this.$t('information.iostWallet'),
-              url: this.isZH
-                ? 'https://github.tokenpocket.pro/BlockchainGuide-IOST/#/'
-                : 'https://github.tokenpocket.pro/BlockchainGuide-IOST-EN/#/',
-            },
-            {
-              local: true,
-              title: this.$t('information.tpMan'),
-              url: this.recruitingUrl,
-            },
-          ],
-        },
-        {
-          title: this.$t('developers.title'),
-          data: [
-            {
-              title: this.$t('developers.github'),
-              url: 'https://github.com/TP-Lab',
-            },
-            {
-              title: this.$t('developers.devCenter'),
-              url: this.developerUrl,
-            },
-            {
-              local: true,
-              title: this.$t('developers.subDApp'),
-              url: this.dappUrl
-            },
-            {
-              local: true,
-              title: this.$t('developers.subToken'),
-              url: this.tokenUrl
-            },
-            {
-              local: true,
-              title: this.$t('developers.subNFT'),
-              url: this.nftUrl
-            },
-          ],
-        },
-        {
-          title: this.$t('company.title'),
-          data: [
-            {
-              local: true,
-              title: this.$t('company.about'),
-              url: this.aboutUrl
-            },
-            {
-              title: this.$t('company.careers'),
-              url: this.joinUsUrl,
-            },
-            {
-              title: this.$t('company.pressKit'),
-              url: 'https://hk.tpstatic.net/TokenPocket_Brand.zip',
-            },
-            {
-              title: this.$t('company.swagShop'),
-              url: this.isZH
-                ? 'https://shop95838799.m.youzan.com/v2/showcase/homepage?alias=sptfzUCg0j'
-                : 'https://keypalwallet.mystrikingly.com/',
-            },
-          ],
-        },
-        {
-          title: this.$t('support.title'),
-          data: (() => {
-            var base = [
-              {
-                title: this.$t('support.helpCenter'),
-                url: this.developerUrl,
-              },
-              {
-                title: this.$t('support.contactUs'),
-                url: this.contactUsUrl,
-              },
-            ];
-
-            return base;
-          })(),
-        },
-        {
-          title: this.$t('legal.title'),
-          data: [
-            {
-              title: this.$t('legal.privacyPolicy'),
-              url: this.isZH
-                ? '/privacy-zh/index.html'
-                : '/privacy-en/index.html',
-            },
-            {
-              title: this.$t('legal.terms'),
-              url: this.isZH ? '/terms-zh/index.html' : '/terms-en/index.html',
-            },
-          ],
-        },
-      ];
     },
   },
   methods: {
@@ -331,11 +100,8 @@ export default {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
-    padding: 80px 0 164px;
+    padding: 20px 0 40px;
     .follow-wrap {
-      .logo {
-        width: 225px;
-      }
       .footer-follows {
         display: flex;
         margin: 32px 0 16px;
@@ -352,48 +118,6 @@ export default {
         font-weight: 400;
         color: #6f7174;
         line-height: 20px;
-      }
-    }
-    .footer-wrap {
-      flex: 1;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin-left: 131px;
-      h3 {
-        margin-top: 0;
-        margin-bottom: 30px;
-      }
-      .footer-list {
-        padding: 0 10px;
-        &.lang-wrap {
-          width: 30%;
-          &:nth-child(n + 4) {
-            margin-top: 20px;
-          }
-        }
-        .title {
-          font-size: 14px;
-          font-weight: 300;
-          color: #6f7174;
-          line-height: 20px;
-        }
-        .footer-link-wrap {
-          margin-top: 24px;
-          .footer-link {
-            a {
-              display: inline-block;
-              margin-bottom: 15px;
-              font-size: 14px;
-              font-weight: 300;
-              color: rgba(255, 255, 255, 0.88);
-              line-height: 18px;
-            }
-            a:hover {
-              color: #2980fe;
-            }
-          }
-        }
       }
     }
   }
@@ -467,7 +191,7 @@ export default {
 @media screen and (max-width: 1300px) {
   .footer {
     .content {
-      padding: 80px 20px 164px;
+      padding: 40px 28px 20px;
     }
   }
 }
@@ -475,17 +199,8 @@ export default {
 @media screen and (max-width: 1200px) {
   .footer {
     .content {
-      padding: 80px 28px 164px;
+      padding: 40px 28px 20px;
       flex-direction: column;
-      .footer-wrap {
-        margin-left: 0;
-        margin-top: 40px;
-        .footer-list {
-          .title {
-            text-align: left;
-          }
-        }
-      }
     }
   }
 }
@@ -512,35 +227,6 @@ export default {
         }
         .copyright {
           font-size: 13px;
-        }
-      }
-      .footer-wrap {
-        margin: 0;
-        margin-top: 32px;
-        .footer-list {
-          padding: 0;
-          width: 100%;
-          margin-bottom: 12px;
-          &.lang-wrap {
-            width: 100%;
-            &:nth-child(n + 4) {
-              margin-top: 0;
-            }
-          }
-          .title {
-            padding: 0;
-            font-size: 14px;
-          }
-          .footer-link-wrap {
-            margin-top: 12px;
-            .footer-link {
-              width: 100%;
-              a {
-                margin-bottom: 8px;
-                line-height: 21px;
-              }
-            }
-          }
         }
       }
     }

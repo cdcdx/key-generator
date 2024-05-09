@@ -1,84 +1,7 @@
 
 export default {
-  product: {
-    title: '製品',
-    selfCustodyWallet: 'モバイルウォレット',
-    selfCustodyWalletDesc: 'ブロックチェーンの暗号資産&DeFiモバイルウォレット',
-    hardwareWallet: 'ハードウェアウォレット',
-    hardwareWalletDesc: 'あなたの資産を守る、KeyPalをゲットしよう。',
-    extensionWallet: '拡張ウォレット',
-    extensionWalletDesc: 'デスクトップでより良いウォレットを。',
-    transit: 'Transit',
-    transitDesc: 'マルチチェーンのDEXアグリゲーター&NFTマーケットプレイス',
-    fiveDegrees: '5Degrees',
-    fiveDegreesDesc: 'Web3.0のソーシャルネットワークプロトコル',
-    stakeVault: 'ETH Staking Vault',
-    stakeVaultDesc: '自己保管のステーキングと少額ステーキングの両方をサポートしています'
-  },
-  project: {
-    subDApp: 'DAppを投稿',
-    subToken: 'トークンを投稿',
-    subNFT: 'NFTを投稿',
-    subChain: 'チェーン',
-  },
-  assets: {
-    title: 'アセット',
-  },
-  collaborations: {
-    title: 'コラボレーション',
-  },
-  community: {
-    title: 'コミュニティ',
-    developers: '開発者',
-    recruiting: 'TPマン(採用)',
-  },
-  helpCenter: {
-    title: 'ヘルプセンター',
-  },
-  features: {
-    title: 'プロダクト',
-    buyCrypto: '暗号資産を購入',
-    mobileWallet: 'モバイルウォレット',
-    hardwareWallet: 'ハードウェアウォレット',
-    extensionWallet: '拡張ウォレット',
-    desktop: 'デスクトップウォレット',
-    fiveDegrees: '5Degrees',
-    approvalDetector: 'アプルーバルディテクター',
-    tokenSecurity: 'トークンセキュリティ',
-    keyGenerator: 'キージェネレーター',
-    BATCH_SENDER: 'バッチセンダー',
-  },
-  information: {
-    title: '詳細',
-    blockchainGuide: 'ブロックチェーンガイド',
-    tronWallet: 'TRON Guide',
-    iostWallet: 'IOST Guide',
-    tpMan: 'TPマン',
-  },
-  developers: {
-    title: '開発者',
-    github: 'Github (TP-Lab)',
-    devCenter: '開発者センター',
-    subToken: 'トークンを投稿',
-    subDApp: 'DAppを投稿',
-    subNFT: 'NFTを投稿',
-  },
-  company: {
-    title: '会社',
-    about: 'TokenPocketについて',
-    careers: 'キャリア',
-    pressKit: 'プレスキット',
-    swagShop: 'スワッグショップ',
-  },
-  support: {
-    title: 'サポート',
-    helpCenter: 'ヘルプセンター',
-    contactUs: 'お問い合わせ',
-  },
-  legal: {
-    title: '法的情報',
-    privacyPolicy: 'プライバシーポリシー',
-    terms: '利用規約',
+  github: {
+    title: 'Github',
   },
   chain: {
     btc: 'BTC',
@@ -108,6 +31,7 @@ export default {
     tips:
       '公開鍵と秘密鍵を生成するには、ネットワークから切断することをお勧めします。生成後は、必ず秘密鍵情報を記録して保管してください。秘密鍵情報は、誰にも開示したり開示したりしないでください。！',
     githubUrl: 'オープンソースアドレス',
+    seed: 'Seed',
     uncompressPublicKey: '非圧縮の公開鍵',
     publicKey: '公開鍵',
     privateKey: '秘密鍵(プライベートキー)',

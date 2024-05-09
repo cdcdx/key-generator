@@ -1,83 +1,6 @@
 export default {
-  product: {
-    title: 'Product',
-    selfCustodyWallet: 'Mobile Wallet',
-    selfCustodyWalletDesc: 'Crypto&DeFi Mobile Wallet on Blockchain.',
-    hardwareWallet: 'Hardware Wallet',
-    hardwareWalletDesc: 'Get Your KeyPal, to Guard Your Assets.',
-    extensionWallet: 'Extension Wallet',
-    extensionWalletDesc: 'A Better Wallet on Your Computer.',
-    transit: 'Transit',
-    transitDesc: 'Multi-chain DEX Aggregator and NFT Marketplace Platform.',
-    fiveDegrees: '5Degrees',
-    fiveDegreesDesc: 'Social Network Protocol in Web3.0.',
-    stakeVault: 'ETH Staking Vault',
-    stakeVaultDesc: 'Support Both Self-Custodial Staking and Small Amount Staking'
-  },
-  project: {
-    subDApp: 'Submit DApp',
-    subToken: 'Submit Token',
-    subNFT: 'Submit NFT',
-    subChain: 'Submit Chain',
-  },
-  assets: {
-    title: 'Assets',
-  },
-  collaborations: {
-    title: 'Collaborations',
-  },
-  community: {
-    title: 'Community',
-    developers: 'Developers',
-    recruiting: 'TP Man',
-  },
-  helpCenter: {
-    title: 'Help',
-  },
-  features: {
-    title: 'Features',
-    buyCrypto: 'Buy Crypto',
-    mobileWallet: 'Mobile Wallet',
-    hardwareWallet: 'Hardware Wallet',
-    extensionWallet: 'Extension Wallet',
-    desktop: 'Desktop Wallet',
-    fiveDegrees: '5Degrees',
-    approvalDetector: 'Approval Detector',
-    tokenSecurity: 'Token Security',
-    keyGenerator: 'Key Generator',
-    BATCH_SENDER: 'BatchSender',
-  },
-  information: {
-    title: 'Information',
-    blockchainGuide: 'Blockchain Guide',
-    tronWallet: 'TRON Guide',
-    iostWallet: 'IOST Guide',
-    tpMan: 'TP Man',
-  },
-  developers: {
-    title: 'Developers',
-    github: 'Github (TP-Lab)',
-    devCenter: 'Dev Center',
-    subToken: 'Submit Token',
-    subDApp: 'Submit DApp',
-    subNFT: 'Submit NFT',
-  },
-  company: {
-    title: 'Company',
-    about: 'About',
-    careers: 'Careers',
-    pressKit: 'Press Kit',
-    swagShop: 'Swag Shop',
-  },
-  support: {
-    title: 'Support',
-    helpCenter: 'Help Center',
-    contactUs: 'Contact Us',
-  },
-  legal: {
-    title: 'Legal',
-    privacyPolicy: 'Privacy Policy',
-    terms: 'Terms of Use',
+  github: {
+    title: 'Github',
   },
   chain: {
     btc: 'BTC',
@@ -107,6 +30,7 @@ export default {
     tips:
       'We recommend that you generate your public and private keys offline. After generating the keys, please be sure to record and store your private key safely. Do not disclose private key information to anyone!',
     githubUrl: 'Open Source',
+    seed: 'Seed',
     uncompressPublicKey: 'Uncompress Public Key',
     publicKey: 'Public Key',
     privateKey: 'Private Key',

@@ -1,21 +1,8 @@
 <template>
   <div class="home">
-    <!-- <Header /> -->
+    <Header />
     <main>
       <div class="container">
-        <!-- <div class="main-left">
-          <img class="left-img" src="../assets/left-img.png" alt="" />
-          <div class="title">{{ $t('main.title') }}</div>
-          <div class="desc">{{ $t('main.intro') }}</div>
-          <div class="address">{{ $t('main.githubUrl') }}</div>
-          <a class="github" href="https://github.com/TP-Lab/key-generator" target="_blank">
-            <div class="left">
-              <img src="../assets/main/github.png" alt="" />
-              <span>Github</span>
-            </div>
-            <img class="arrow" src="../assets/arrow.png" alt="" />
-          </a>
-        </div> -->
         <div class="main-right">
 
           <div class="mnemonic-item">
@@ -54,24 +41,28 @@
                   <KeyItem :title="$t('main.privateKey')" :value="eosPrivateKey" />
                   <KeyItem :title="$t('main.publicKey')" :value="eosPublicKey" />
                   <KeyItem :title="$t('main.uncompressPublicKey')" :value="eosUncompressPublicKey" />
+                  <KeyItem :title="$t('main.seed')" :value="eosSeed" />
                 </div>
                 <div class="key-box dogecoin" v-show="network === 'DOGE'">
                   <KeyItem :title="$t('main.address')" :value="dogeAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="dogePrivateKey" />
                   <KeyItem :title="$t('main.publicKey')" :value="dogePublicKey" />
                   <KeyItem :title="$t('main.uncompressPublicKey')" :value="dogeUncompressPublicKey" />
+                  <KeyItem :title="$t('main.seed')" :value="dogeSeed" />
                 </div>
                 <div class="key-box iost" v-show="network === 'IOST'">
                   <KeyItem :title="$t('main.address')" :value="iostAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="iostPrivateKey" />
                   <KeyItem :title="$t('main.publicKey')" :value="iostPublicKey" />
                   <KeyItem :title="$t('main.uncompressPublicKey')" :value="iostUncompressPublicKey" />
+                  <KeyItem :title="$t('main.seed')" :value="iostSeed" />
                 </div>
                 <div class="key-box tron" v-show="network === 'TRX'">
                   <KeyItem :title="$t('main.address')" :value="tronAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="tronPrivateKey" />
                   <KeyItem :title="$t('main.publicKey')" :value="tronPublicKey" />
                   <KeyItem :title="$t('main.uncompressPublicKey')" :value="tronUncompressPublicKey" />
+                  <KeyItem :title="$t('main.seed')" :value="tronSeed" />
                 </div>
                 <div class="key-box btc" v-show="network === 'BTC'">
                   <KeyItem :title="'P2PKH ' + $t('main.address')" :value="btcAddress" />
@@ -81,6 +72,7 @@
                   <KeyItem :title="$t('main.privateKey')" :value="btcPrivateKey" />
                   <KeyItem :title="$t('main.publicKey')" :value="btcPublicKey" />
                   <KeyItem :title="$t('main.uncompressPublicKey')" :value="btcUncompressPublicKey" />
+                  <KeyItem :title="$t('main.seed')" :value="btcSeed" />
                 </div>
                 <div class="key-box cosmos" v-show="network === 'ATOM'">
                   <KeyItem :title="$t('main.address')" :value="cosmosAddress" />
@@ -109,6 +101,7 @@
                   <KeyItem :title="$t('main.privateKey')" :value="solanaPrivateKey" />
                   <KeyItem :title="$t('main.publicKey')" :value="solanaPublicKey" />
                   <KeyItem :title="$t('main.uncompressPublicKey')" :value="solanaUncompressPublicKey" />
+                  <KeyItem :title="$t('main.seed')" :value="solanaSeed" />
                 </div>
                 <div class="key-box aptos" v-show="network === 'APT'">
                   <KeyItem :title="$t('main.address')" :value="aptosAddress" />
@@ -121,12 +114,14 @@
                   <KeyItem :title="$t('main.privateKey')" :value="polkadotPrivateKey" />
                   <KeyItem :title="$t('main.publicKey')" :value="polkadotPublicKey" />
                   <KeyItem :title="$t('main.uncompressPublicKey')" :value="polkadotUncompressPublicKey" />
+                  <KeyItem :title="$t('main.seed')" :value="polkadotSeed" />
                 </div>
                 <div class="key-box bch" v-show="network === 'BCH'">
                   <KeyItem :title="$t('main.address')" :value="bchAddress" />
                   <KeyItem :title="$t('main.privateKey')" :value="bchPrivateKey" />
                   <KeyItem :title="$t('main.publicKey')" :value="bchPublicKey" />
                   <KeyItem :title="$t('main.uncompressPublicKey')" :value="bchUncompressPublicKey" />
+                  <KeyItem :title="$t('main.seed')" :value="bchSeed" />
                 </div>
                 <div class="key-box ltc" v-show="network === 'LTC'">
                   <KeyItem :title="'SegWit ' + $t('main.address')" :value="ltcAddress" />
@@ -135,6 +130,7 @@
                   <KeyItem :title="$t('main.privateKey')" :value="ltcPrivateKey" />
                   <KeyItem :title="$t('main.publicKey')" :value="ltcPublicKey" />
                   <KeyItem :title="$t('main.uncompressPublicKey')" :value="ltcUncompressPublicKey" />
+                  <KeyItem :title="$t('main.seed')" :value="ltcSeed" />
                 </div>
                 <div class="key-box cfx" v-show="network === 'CFX'">
                   <KeyItem :title="$t('main.address')" :value="cfxAddress" />
@@ -176,7 +172,7 @@
         </div>
       </div>
     </main>
-    <!-- <Footer /> -->
+    <Footer />
     <!-- <div class="change-chain" v-show="isMobileChain">
       <div class="container">
         <div class="title-header">
@@ -204,36 +200,22 @@ import Address from '@nervosnetwork/ckb-sdk-address';
 import * as secp256k1 from '@noble/secp256k1';
 import Keyring from '@polkadot/keyring';
 import { u8aToHex } from '@polkadot/util';
-import {
-cryptoWaitReady,
-mnemonicGenerate,
-mnemonicToMiniSecret,
-} from '@polkadot/util-crypto';
+import { cryptoWaitReady, mnemonicGenerate, mnemonicToMiniSecret, } from '@polkadot/util-crypto';
 import { bech32 } from '@scure/base';
 import { Keypair } from '@solana/web3.js';
-// npm install @tronscan/client
 import { pkToAddress } from "@tronscan/client/src/utils/crypto";
 import { AptosAccount } from 'aptos';
 import { generateMnemonic, mnemonicToSeed, mnemonicToSeedSync } from 'bip39';
-import {
-Address as BCHAddress,
-PrivateKey as BCHPrivateKey,
-PublicKey as BCHPublicKey,
-crypto as BCHcrypto,
-} from 'bitcore-lib-cash';
+import { Address as BCHAddress, PrivateKey as BCHPrivateKey, PublicKey as BCHPublicKey, crypto as BCHcrypto, } from 'bitcore-lib-cash';
 import bs58 from 'bs58';
 import { ec as EC } from 'elliptic';
 import ecc from 'eosjs-ecc';
-// import ethers from 'ethers';
 import iost from 'iost';
 import Irisnet from 'irisnet-crypto';
 import { Wallet } from 'jingtum-base-lib';
 import { format } from 'js-conflux-sdk';
 import { generatePrivateKey, getPublicKey } from 'nostr-tools';
-import TronWeb from 'tronweb';
-import Web3 from 'web3';
 const ethers = require("ethers");
-// const ethUtil = require('ethereumjs-util');
 
 const Bech32MaxSize = 5000;
 
@@ -333,8 +315,6 @@ export default {
       copyEnable: true,
       clipboard: '',
       clipboard1: '',
-      tronWeb: '',
-      web3: '',
       BncClient: '',
       crypto: '',
       network: 'ETH',
@@ -475,15 +455,6 @@ export default {
     this.network = network || 'BTC';
     this.chainId = chainId || '';
     this.ss58 = ss58 || '';
-    this.tronWeb = new TronWeb({
-      fullHost: 'https://api.trongrid.io',
-      privateKey: '',
-    });
-
-    this.web3 = new Web3(
-      new Web3.providers.HttpProvider('https://eth49he73m.jccdex.cn'),
-    );
-
     this.BncClient = BncClient;
     this.crypto = Irisnet.getCrypto('cosmos');
   },
@@ -533,6 +504,7 @@ export default {
   },
 
   methods: {
+  // ---------- Doge
     async genDogeKey() {
       const DOGE_NETWORK = {
         messagePrefix: '\x19Dogecoin Signed Message:\n',
@@ -547,6 +519,7 @@ export default {
       const doge_path = "m/44'/3'/0'/0/0";
       const mnemonic = generateMnemonic();
       const seed = await mnemonicToSeed(mnemonic);
+      this.dogeSeed = Buffer.from(seed).toString('hex');
       const doge_master = bip32Obj.fromSeed(seed, DOGE_NETWORK);
       const doge_keypair = doge_master.derivePath(doge_path);
       const doge_data = bitcoin.payments.p2pkh({
@@ -580,6 +553,7 @@ export default {
         return
       }
       const seed = await mnemonicToSeed(mnemonic);
+      this.dogeSeed = Buffer.from(seed).toString('hex');
       // // log
       // console.log('mnemonic:', mnemonic);
       // console.log('seed:', seed);
@@ -595,7 +569,7 @@ export default {
       this.dogePublicKey = Buffer.from(doge_keypair.publicKey).toString('hex');
     },
 
-    // ---------- 
+    // ---------- Nostr
     genNostrKey() {
       let sk = generatePrivateKey(); // `sk` is a hex string
       let pk = getPublicKey(sk); // `pk` is a hex string
@@ -638,7 +612,7 @@ export default {
       return bech32.encode(prefix, words, Bech32MaxSize);
     },
 
-    // ---------- 
+    // ---------- SUI - ed25519
     genSuiKey() {
       const keypair = new Ed25519Keypair();
       this.suiAddress = keypair.getPublicKey().toSuiAddress();
@@ -663,7 +637,7 @@ export default {
       this.suiPrivateKey = toHEX(keypair.keypair.secretKey.slice(0, 32));
     },
 
-    // ---------- 
+    // ---------- CFX
     genConfluxKey() {
       const randomWallet = ethers.Wallet.createRandom();
       this.cfxAddress = randomWallet.address;
@@ -677,14 +651,6 @@ export default {
         `0x1${randomWallet.address.toLowerCase().slice(3)}`,
         1029
       );
-
-      // var account = this.web3.eth.accounts.create();
-      // this.cfxAddress = account.address;
-      // this.cfxPrivateKey = account.privateKey;
-      // this.cfxMainnetAddress = format.address(
-      //   `0x1${account.address.toLowerCase().slice(3)}`,
-      //   1029
-      // );
     },
 
     genConfluxKeyfromMnemonic() {
@@ -712,7 +678,7 @@ export default {
       );
     },
 
-    // ---------- 
+    // ---------- BCH
     genBCHKey() {
       let privateKey = new BCHPrivateKey();
       // console.log("privateKey:",privateKey);
@@ -736,6 +702,7 @@ export default {
 
       var value = new Buffer(mnemonic);
       var hash = BCHcrypto.Hash.sha256(value);
+      this.bchSeed = Buffer.from(hash).toString('hex');
       var bn = BCHcrypto.BN.fromBuffer(hash);
       let privateKey = new BCHPrivateKey(bn);
       // console.log("privateKey:", privateKey);
@@ -746,8 +713,7 @@ export default {
       this.bchAddress = address.toString().slice(12);
     },
 
-    // ---------- 
-    // generate LTC path
+    // ---------- LTC
     getLTCPath(type) {
       let path = '';
       // p2pkh
@@ -765,7 +731,6 @@ export default {
       return path;
     },
 
-     // generate LTC address
     getLTCAddress(type, keyPair, network) {
       var data;
       // p2pkh
@@ -814,6 +779,7 @@ export default {
       };
       const mnemonic = generateMnemonic();
       const seed = await mnemonicToSeed(mnemonic);
+      this.ltcSeed = Buffer.from(seed).toString('hex');
       const master = bip32Obj.fromSeed(seed, LTC_NETWORK);
       const path = this.getLTCPath(addressTypes[0]);
       const keyPair = master.derivePath(path);
@@ -872,6 +838,7 @@ export default {
         return
       }
       const seed = await mnemonicToSeed(mnemonic);
+      this.ltcSeed = Buffer.from(seed).toString('hex');
       // // log
       // console.log('mnemonic:', mnemonic);
       // console.log('seed:', seed);
@@ -911,11 +878,12 @@ export default {
       }
     },
 
-    // ---------- 
+    // ---------- DOT
     async genPolkadotKey() {
       const mnemonic = mnemonicGenerate(12);
       // PrivateKey
       const seed = mnemonicToMiniSecret(mnemonic);
+      this.polkadotSeed = Buffer.from(seed).toString('hex');
       this.polkadotPrivateKey = u8aToHex(seed);
       // address
       await cryptoWaitReady();
@@ -942,6 +910,7 @@ export default {
       }
       // PrivateKey
       const seed = mnemonicToMiniSecret(mnemonic);
+      this.polkadotSeed = Buffer.from(seed).toString('hex');
       this.polkadotPrivateKey = u8aToHex(seed);
       // // log
       // console.log('mnemonic:', mnemonic);
@@ -961,7 +930,7 @@ export default {
       this.polkadotPublicKey = u8aToHex(pair.publicKey);
     },
 
-    // ---------- 
+    // ---------- APT
     genAptosKey() {
       const account = new AptosAccount();
       this.aptosAddress = account.authKey().hexString;
@@ -986,7 +955,7 @@ export default {
       this.aptosPublicKey = account.toPrivateKeyObject().publicKeyHex;
     },
 
-    // ---------- 
+    // ---------- SOL
     genSolanaKey() {
       const account = Keypair.generate();
       this.solanaAddress = account.publicKey.toBase58();
@@ -1005,6 +974,7 @@ export default {
         return
       }
       const seed = mnemonicToSeedSync(mnemonic);
+      this.solanaSeed = Buffer.from(seed.slice(0, 32)).toString('hex');
       const account = Keypair.fromSeed(seed.slice(0, 32));
       // // log
       // console.log('mnemonic:', mnemonic);
@@ -1016,7 +986,7 @@ export default {
       this.solanaPublicKey = account.publicKey;
     },
 
-    // ---------- 
+    // ---------- EOS
     genEosKey() {
       ecc.randomKey().then((privateKey) => {
         this.eosPrivateKey = privateKey;
@@ -1036,13 +1006,14 @@ export default {
         return
       }
       const seed = mnemonicToSeedSync(mnemonic);
+      this.eosSeed = Buffer.from(seed).toString('hex');
       const privateKey = ecc.seedPrivate(seed.toString());
       this.eosPrivateKey = privateKey;
       this.eosPublicKey = ecc.privateToPublic(privateKey);
       this.eosAddress = ecc.privateToPublic(privateKey);
     },
 
-    // ---------- 
+    // ---------- BNB
     genBinanceKey() {
       this.binancePrivateKey = BncClient.crypto.generatePrivateKey();
       const publicKey = BncClient.crypto.getPublicKeyFromPrivateKey(this.binancePrivateKey);
@@ -1078,14 +1049,14 @@ export default {
       );
     },
 
-    // ---------- 
+    // ---------- JTM
     genJingtumKey() {
       let wallet = Wallet.generate();
       this.jingtumAddress = wallet.address;
       this.jingtumPrivateKey = wallet.secret;
     },
 
-    // ---------- 
+    // ---------- Cosmos
     genCosmosKey() {
       let account = this.crypto.create();
       this.cosmosAddress = account.address;
@@ -1110,7 +1081,7 @@ export default {
       this.cosmosPublicKey = account.publicKey;
     },
 
-    // ---------- 
+    // ---------- ETH
     genEthKey() {
       const randomWallet = ethers.Wallet.createRandom();
       // console.log('randomWallet:', randomWallet);
@@ -1122,10 +1093,6 @@ export default {
       this.ethPublicKey = '0x' + compressPublicKey(publicKey);
       // console.log('publicKey:', publicKey);
       // console.log('this.ethPublicKey:', this.ethPublicKey);
-
-      // var account = this.web3.eth.accounts.create();
-      // this.ethAddress = account.address;
-      // this.ethPrivateKey = account.privateKey;
     },
 
     genEthKeyfromMnemonic() {
@@ -1151,10 +1118,11 @@ export default {
       // console.log('this.ethPublicKey:', this.ethPublicKey);
     },
 
-    // ---------- 
+    // ---------- TRX
     genTronKey() {
       const mnemonic = mnemonicGenerate(12);
       const seed = mnemonicToSeedSync(mnemonic);
+      this.tronSeed = Buffer.from(seed).toString('hex');
       const node = bip32Obj.fromSeed(seed);
       const child = node.derivePath("m/44'/195'/0'/0/0");
       const privateKey = child.privateKey.toString('hex');
@@ -1163,11 +1131,6 @@ export default {
       this.tronAddress = address;
       this.tronPrivateKey = privateKey;
       this.tronPublicKey = publicKey;
-
-      // this.tronWeb.createAccount().then((res) => {
-      //   this.tronAddress = res.address.base58;
-      //   this.tronPrivateKey = res.privateKey;
-      // });
     },
 
     genTronKeyfromMnemonic() {
@@ -1181,17 +1144,20 @@ export default {
         return
       }
       const seed = mnemonicToSeedSync(mnemonic);
+      this.tronSeed = Buffer.from(seed).toString('hex');
       const node = bip32Obj.fromSeed(seed);
       const child = node.derivePath("m/44'/195'/0'/0/0");
       const privateKey = child.privateKey.toString('hex');
       const publicKey = child.publicKey.toString('hex');
       const address = pkToAddress(privateKey).toString("hex");
+      // console.log('seed:', seed);
+      // console.log('child.publicKey:', child.publicKey);
       this.tronAddress = address;
       this.tronPrivateKey = privateKey;
       this.tronPublicKey = publicKey;
     },
 
-    // ---------- 
+    // ---------- IOST
     genIostKey() {
       var kp = iost.KeyPair.newKeyPair();
       this.iostPrivateKey = kp.B58SecKey();
@@ -1210,14 +1176,14 @@ export default {
         return
       }
       const seed = mnemonicToSeedSync(mnemonic);
+      this.iostSeed = Buffer.from(seed).toString('hex');
       var kp = new iost.KeyPair(seed);
       this.iostPrivateKey = kp.B58SecKey();
       this.iostPublicKey = kp.B58PubKey();
       this.iostAddress = kp.B58PubKey();
     },
 
-    // ---------- 
-    // generate path
+    // ---------- BTC
     getBtcPath(type) {
       let path = '';
       // p2pkh
@@ -1239,7 +1205,6 @@ export default {
       return path;
     },
 
-    // generate address
     getBtcAddress(type, keyPair, network) {
       var data;
       // p2pkh
@@ -1283,6 +1248,7 @@ export default {
       const network = bitcoin.networks.bitcoin;
       const mnemonic = generateMnemonic();
       const seed = await mnemonicToSeedSync(mnemonic);
+      this.btcSeed = Buffer.from(seed).toString('hex');
       const master = bip32Obj.fromSeed(seed, network);
       const path = this.getBtcPath(addressTypes[0]);
       const keyPair = master.derivePath(path);
@@ -1338,6 +1304,7 @@ export default {
         return
       }
       const seed = await mnemonicToSeedSync(mnemonic);
+      this.btcSeed = Buffer.from(seed).toString('hex');
       // // log
       // console.log('mnemonic:', mnemonic);
       // console.log('seed:', seed);
@@ -1384,7 +1351,7 @@ export default {
       }
     },
 
-    // ---------- 
+    // ---------- CKB
     genNervosKey() {
       let privateKey = ec.genKeyPair().priv;
       let address = new Address(privateKey, { prefix: 'ckb' });
@@ -1566,7 +1533,7 @@ function isPrivateKey(input) {
 }
 function compressPublicKey(publicKey) {
   publicKey = publicKey.replace('0x', '').replace('0X', '').replace(' ', '');
-  console.log("publicKey.length:", publicKey.length);
+  // console.log("publicKey.length:", publicKey.length);
   var compressedKeyIndex;
   if (publicKey.substring(0, 2) !== "04") {
     throw "Invalid public key format";
@@ -1577,6 +1544,7 @@ function compressPublicKey(publicKey) {
     compressedKeyIndex = "02";
   }
   var result = compressedKeyIndex + publicKey.substring(2, 66);
+  console.log("compress publicKey:", publicKey, '=>', result);
   return result;
   // return result.toLowerCase(); // 转换为小写
 }
