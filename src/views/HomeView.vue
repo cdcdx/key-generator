@@ -208,6 +208,7 @@ import { AptosAccount } from 'aptos';
 import { generateMnemonic, mnemonicToSeed, mnemonicToSeedSync } from 'bip39';
 import { Address as BCHAddress, PrivateKey as BCHPrivateKey, PublicKey as BCHPublicKey, crypto as BCHcrypto, } from 'bitcore-lib-cash';
 import bs58 from 'bs58';
+import { derivePath as ed25519derivePath } from 'ed25519-hd-key';
 import { ec as EC } from 'elliptic';
 import ecc from 'eosjs-ecc';
 import iost from 'iost';
@@ -955,7 +956,7 @@ export default {
       this.aptosPublicKey = account.toPrivateKeyObject().publicKeyHex;
     },
 
-    // ---------- SOL
+    // ---------- SOL - ed25519
     genSolanaKey() {
       const account = Keypair.generate();
       this.solanaAddress = account.publicKey.toBase58();
@@ -974,13 +975,13 @@ export default {
         return
       }
       const seed = mnemonicToSeedSync(mnemonic);
-      this.solanaSeed = Buffer.from(seed.slice(0, 32)).toString('hex');
-      const account = Keypair.fromSeed(seed.slice(0, 32));
-      // // log
+      const child = "m/44'/501'/0'/0'".toString();
+      const derivedSeed = ed25519derivePath(child, seed.toString("hex")).key;
+      this.solanaSeed = Buffer.from(derivedSeed.slice(0, 32)).toString('hex');
+      const account = Keypair.fromSeed(derivedSeed.slice(0, 32));
       // console.log('mnemonic:', mnemonic);
       // console.log('seed:', seed);
       // console.log('account:',account);
-
       this.solanaAddress = account.publicKey.toBase58();
       this.solanaPrivateKey = bs58.encode(account.secretKey);
       this.solanaPublicKey = account.publicKey;
@@ -1544,7 +1545,7 @@ function compressPublicKey(publicKey) {
     compressedKeyIndex = "02";
   }
   var result = compressedKeyIndex + publicKey.substring(2, 66);
-  console.log("compress publicKey:", publicKey, '=>', result);
+  // console.log("compress publicKey:", publicKey, '=>', result);
   return result;
   // return result.toLowerCase(); // 转换为小写
 }
