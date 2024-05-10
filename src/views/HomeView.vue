@@ -505,7 +505,7 @@ export default {
   },
 
   methods: {
-  // ---------- Doge
+    // ---------- Doge - secp256k1
     async genDogeKey() {
       const DOGE_NETWORK = {
         messagePrefix: '\x19Dogecoin Signed Message:\n',
@@ -517,12 +517,12 @@ export default {
         scripthash: 0x16,
         wif: 0x9e,
       };
-      const doge_path = "m/44'/3'/0'/0/0";
+      const child = "m/44'/3'/0'/0/0";
       const mnemonic = generateMnemonic();
       const seed = await mnemonicToSeed(mnemonic);
       this.dogeSeed = Buffer.from(seed).toString('hex');
       const doge_master = bip32Obj.fromSeed(seed, DOGE_NETWORK);
-      const doge_keypair = doge_master.derivePath(doge_path);
+      const doge_keypair = doge_master.derivePath(child);
       const doge_data = bitcoin.payments.p2pkh({
         pubkey: doge_keypair.publicKey,
         network: DOGE_NETWORK,
@@ -543,7 +543,7 @@ export default {
         scripthash: 0x16,
         wif: 0x9e,
       };
-      const doge_path = "m/44'/3'/0'/0/0";
+      const child = "m/44'/3'/0'/0/0";
       const mnemonic = this.mnemonic;
       if (!mnemonic) {
         return
@@ -560,7 +560,7 @@ export default {
       // console.log('seed:', seed);
 
       const doge_master = bip32Obj.fromSeed(seed, DOGE_NETWORK);
-      const doge_keypair = doge_master.derivePath(doge_path);
+      const doge_keypair = doge_master.derivePath(child);
       const doge_data = bitcoin.payments.p2pkh({
         pubkey: doge_keypair.publicKey,
         network: DOGE_NETWORK,
@@ -570,7 +570,7 @@ export default {
       this.dogePublicKey = Buffer.from(doge_keypair.publicKey).toString('hex');
     },
 
-    // ---------- Nostr
+    // ---------- Nostr - secp256k1
     genNostrKey() {
       let sk = generatePrivateKey(); // `sk` is a hex string
       let pk = getPublicKey(sk); // `pk` is a hex string
@@ -638,7 +638,7 @@ export default {
       this.suiPrivateKey = toHEX(keypair.keypair.secretKey.slice(0, 32));
     },
 
-    // ---------- CFX
+    // ---------- CFX - secp256k1
     genConfluxKey() {
       const randomWallet = ethers.Wallet.createRandom();
       this.cfxAddress = randomWallet.address;
@@ -679,7 +679,7 @@ export default {
       );
     },
 
-    // ---------- BCH
+    // ---------- BCH - sha256
     genBCHKey() {
       let privateKey = new BCHPrivateKey();
       // console.log("privateKey:",privateKey);
@@ -714,7 +714,7 @@ export default {
       this.bchAddress = address.toString().slice(12);
     },
 
-    // ---------- LTC
+    // ---------- LTC - secp256k1
     getLTCPath(type) {
       let path = '';
       // p2pkh
@@ -879,7 +879,7 @@ export default {
       }
     },
 
-    // ---------- DOT
+    // ---------- DOT - sr25519
     async genPolkadotKey() {
       const mnemonic = mnemonicGenerate(12);
       // PrivateKey
@@ -931,7 +931,7 @@ export default {
       this.polkadotPublicKey = u8aToHex(pair.publicKey);
     },
 
-    // ---------- APT
+    // ---------- APT - secp256k1 ed25519
     genAptosKey() {
       const account = new AptosAccount();
       this.aptosAddress = account.authKey().hexString;
@@ -1014,7 +1014,7 @@ export default {
       this.eosAddress = ecc.privateToPublic(privateKey);
     },
 
-    // ---------- BNB
+    // ---------- BNB - secp256k1
     genBinanceKey() {
       this.binancePrivateKey = BncClient.crypto.generatePrivateKey();
       const publicKey = BncClient.crypto.getPublicKeyFromPrivateKey(this.binancePrivateKey);
@@ -1057,7 +1057,7 @@ export default {
       this.jingtumPrivateKey = wallet.secret;
     },
 
-    // ---------- Cosmos
+    // ---------- Cosmos - secp256k1
     genCosmosKey() {
       let account = this.crypto.create();
       this.cosmosAddress = account.address;
@@ -1082,7 +1082,7 @@ export default {
       this.cosmosPublicKey = account.publicKey;
     },
 
-    // ---------- ETH
+    // ---------- ETH - secp256k1
     genEthKey() {
       const randomWallet = ethers.Wallet.createRandom();
       // console.log('randomWallet:', randomWallet);
@@ -1119,15 +1119,15 @@ export default {
       // console.log('this.ethPublicKey:', this.ethPublicKey);
     },
 
-    // ---------- TRX
+    // ---------- TRX - secp256k1
     genTronKey() {
       const mnemonic = mnemonicGenerate(12);
       const seed = mnemonicToSeedSync(mnemonic);
       this.tronSeed = Buffer.from(seed).toString('hex');
       const node = bip32Obj.fromSeed(seed);
-      const child = node.derivePath("m/44'/195'/0'/0/0");
-      const privateKey = child.privateKey.toString('hex');
-      const publicKey = child.publicKey.toString('hex');
+      const account = node.derivePath("m/44'/195'/0'/0/0");
+      const privateKey = account.privateKey.toString('hex');
+      const publicKey = account.publicKey.toString('hex');
       const address = pkToAddress(privateKey).toString("hex");
       this.tronAddress = address;
       this.tronPrivateKey = privateKey;
@@ -1147,18 +1147,18 @@ export default {
       const seed = mnemonicToSeedSync(mnemonic);
       this.tronSeed = Buffer.from(seed).toString('hex');
       const node = bip32Obj.fromSeed(seed);
-      const child = node.derivePath("m/44'/195'/0'/0/0");
-      const privateKey = child.privateKey.toString('hex');
-      const publicKey = child.publicKey.toString('hex');
+      const account = node.derivePath("m/44'/195'/0'/0/0");
+      const privateKey = account.privateKey.toString('hex');
+      const publicKey = account.publicKey.toString('hex');
       const address = pkToAddress(privateKey).toString("hex");
       // console.log('seed:', seed);
-      // console.log('child.publicKey:', child.publicKey);
+      // console.log('account.publicKey:', account.publicKey);
       this.tronAddress = address;
       this.tronPrivateKey = privateKey;
       this.tronPublicKey = publicKey;
     },
 
-    // ---------- IOST
+    // ---------- IOST - secp256k1
     genIostKey() {
       var kp = iost.KeyPair.newKeyPair();
       this.iostPrivateKey = kp.B58SecKey();
@@ -1184,7 +1184,7 @@ export default {
       this.iostAddress = kp.B58PubKey();
     },
 
-    // ---------- BTC
+    // ---------- BTC - secp256k1
     getBtcPath(type) {
       let path = '';
       // p2pkh
@@ -1352,7 +1352,7 @@ export default {
       }
     },
 
-    // ---------- CKB
+    // ---------- CKB - secp256k1
     genNervosKey() {
       let privateKey = ec.genKeyPair().priv;
       let address = new Address(privateKey, { prefix: 'ckb' });
