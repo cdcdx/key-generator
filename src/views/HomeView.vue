@@ -208,7 +208,7 @@ import { AptosAccount } from 'aptos';
 import { generateMnemonic, mnemonicToSeed, mnemonicToSeedSync } from 'bip39';
 import { Address as BCHAddress, PrivateKey as BCHPrivateKey, PublicKey as BCHPublicKey, crypto as BCHcrypto, } from 'bitcore-lib-cash';
 import bs58 from 'bs58';
-import { derivePath as ed25519derivePath } from 'ed25519-hd-key';
+import { derivePath as ED25519derivePath } from 'ed25519-hd-key';
 import { ec as EC } from 'elliptic';
 import ecc from 'eosjs-ecc';
 import iost from 'iost';
@@ -976,7 +976,7 @@ export default {
       }
       const seed = mnemonicToSeedSync(mnemonic);
       const child = "m/44'/501'/0'/0'".toString();
-      const derivedSeed = ed25519derivePath(child, seed.toString("hex")).key;
+      const derivedSeed = ED25519derivePath(child, seed.toString("hex")).key;
       this.solanaSeed = Buffer.from(derivedSeed.slice(0, 32)).toString('hex');
       const account = Keypair.fromSeed(derivedSeed.slice(0, 32));
       // console.log('mnemonic:', mnemonic);
