@@ -7,8 +7,8 @@
 
           <div class="mnemonic-item">
             <div class="mnemonic-name">{{ $t('main.mnemonic') }}</div>
-            <textarea class="mnemonic-input" v-model="mnemonic" placeholder="mnemonic">
-            </textarea>
+            <textarea class="mnemonic-input" v-model="mnemonic" placeholder="mnemonic"></textarea>
+            <button class="generate-mnemonic-btn" @click="generateMnemonicPhrase">{{ $t('main.generateMnemonic') }}</button>
           </div>
 
           <div class="chain-list">
@@ -505,6 +505,12 @@ export default {
   },
 
   methods: {
+    generateMnemonicPhrase() {
+      const mnemonic = generateMnemonic();
+      this.mnemonic = mnemonic;
+      localStorage.setItem('setmnemonic', mnemonic);  // 存储生成的助记词
+    },
+
     // ---------- Doge - secp256k1
     async genDogeKey() {
       const DOGE_NETWORK = {
@@ -544,7 +550,7 @@ export default {
         wif: 0x9e,
       };
       const child = "m/44'/3'/0'/0/0";
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -580,7 +586,7 @@ export default {
     },
 
     genNostrKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -622,7 +628,7 @@ export default {
     },
 
     genSuiKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -655,7 +661,7 @@ export default {
     },
 
     genConfluxKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -691,7 +697,7 @@ export default {
     },
 
     genBCHKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -829,7 +835,7 @@ export default {
         scriptHash: 0x32,
         wif: 0xb0,
       };
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -900,7 +906,7 @@ export default {
     },
 
     async genPolkadotKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -940,7 +946,7 @@ export default {
     },
 
     genAptosKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -950,7 +956,7 @@ export default {
         return
       }
       const child = "m/44'/637'/0'/0'/0'".toString();
-      const account = AptosAccount.fromDerivePath(child, this.mnemonic);
+      const account = AptosAccount.fromDerivePath(child, mnemonic);
       this.aptosAddress = account.authKey().hexString;
       this.aptosPrivateKey = account.toPrivateKeyObject().privateKeyHex;
       this.aptosPublicKey = account.toPrivateKeyObject().publicKeyHex;
@@ -965,7 +971,7 @@ export default {
     },
 
     async genSolanaKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -997,7 +1003,7 @@ export default {
     },
 
     genEosKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -1029,7 +1035,7 @@ export default {
     },
 
     genBinanceKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -1066,7 +1072,7 @@ export default {
     },
 
     genCosmosKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -1097,7 +1103,7 @@ export default {
     },
 
     genEthKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -1135,7 +1141,7 @@ export default {
     },
 
     genTronKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -1167,7 +1173,7 @@ export default {
     },
 
     genIostKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -1295,7 +1301,7 @@ export default {
     async genBtcKeyfromMnemonic() {
       const addressTypes = ['p2pkh', 'p2sh-p2wpkh', 'p2wpkh', 'p2tr'];
       const network = bitcoin.networks.bitcoin;
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -1362,7 +1368,7 @@ export default {
     },
 
     genNervosKeyfromMnemonic() {
-      const mnemonic = this.mnemonic;
+      const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
       }
@@ -1444,7 +1450,7 @@ export default {
     },
 
     onGenerateFromMnemonic() {
-      localStorage.setItem('setmnemonic', this.mnemonic);  // cookie
+      localStorage.setItem('setmnemonic', this.mnemonic.trim());  // cookie
 
       switch (this.network) {
         case 'ETH':

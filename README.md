@@ -1,8 +1,11 @@
 # key-generator
 
 ## Project setup
-Requirements: Node v16
+Requirements: Node v18
 ```
+nvm install 18
+nvm use 18
+
 npm install
 ```
 

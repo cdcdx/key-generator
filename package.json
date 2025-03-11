@@ -36,7 +36,9 @@
     "jingtum-base-lib": "^1.2.2",
     "js-conflux-sdk": "^2.1.6",
     "lodash": "^4.17.15",
+    "node-sass": "^9.0.0",
     "nostr-tools": "^0.24.1",
+    "sass-loader": "^16.0.4",
     "tronweb": "^2.7.1",
     "vue": "^3.2.13",
     "vue-clipboard2": "^0.3.3",
@@ -60,9 +62,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.0.3",
     "node-polyfill-webpack-plugin": "^2.0.1",
-    "node-sass": "^6.0.1",
-    "prettier": "^2.4.1",
-    "sass-loader": "^10.4.1"
+    "prettier": "^2.4.1"
   },
   "eslintConfig": {
     "root": true,
