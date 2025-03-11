@@ -523,7 +523,7 @@ export default {
         scripthash: 0x16,
         wif: 0x9e,
       };
-      const child = "m/44'/3'/0'/0/0";
+      const child = "m/44'/3'/0'/0/0";  // 派生路径
       const mnemonic = generateMnemonic();
       const seed = await mnemonicToSeed(mnemonic);
       this.dogeSeed = Buffer.from(seed).toString('hex');
@@ -549,7 +549,7 @@ export default {
         scripthash: 0x16,
         wif: 0x9e,
       };
-      const child = "m/44'/3'/0'/0/0";
+      const child = "m/44'/3'/0'/0/0";  // 派生路径
       const mnemonic = this.mnemonic.trim();
       if (!mnemonic) {
         return
@@ -595,7 +595,7 @@ export default {
         alert("Input is not a mnemonic");
         return
       }
-      const child = "m/44'/1237'/0'/0/0";
+      const child = "m/44'/1237'/0'/0/0";  // 派生路径
       const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic, child);
       const privateKey = walletMnemonic.privateKey;
       let sk = privateKey.replace('0x', '').replace('0X', '').replace(' ', ''); // `sk` is a hex string
@@ -637,7 +637,7 @@ export default {
         alert("Input is not a mnemonic");
         return
       }
-      const child = "m/44'/784'/0'/0'/0'".toString();
+      const child = "m/44'/784'/0'/0'/0'";  // 派生路径
       const keypair = Ed25519Keypair.deriveKeypair(mnemonic, child);
       this.suiAddress = keypair.getPublicKey().toSuiAddress();
       this.suiPublicKey = keypair.getPublicKey();
@@ -670,7 +670,7 @@ export default {
         alert("Input is not a mnemonic");
         return
       }
-      const child = "m/44'/60'/0'/0/0";
+      const child = "m/44'/60'/0'/0/0";  // 派生路径
       const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic, child);
       this.cfxAddress = walletMnemonic.address;
       this.cfxPrivateKey = walletMnemonic.privateKey;
@@ -955,7 +955,7 @@ export default {
         alert("Input is not a mnemonic");
         return
       }
-      const child = "m/44'/637'/0'/0'/0'".toString();
+      const child = "m/44'/637'/0'/0'/0'";  // 派生路径
       const account = AptosAccount.fromDerivePath(child, mnemonic);
       this.aptosAddress = account.authKey().hexString;
       this.aptosPrivateKey = account.toPrivateKeyObject().privateKeyHex;
@@ -981,7 +981,7 @@ export default {
         return
       }
       const seed = mnemonicToSeedSync(mnemonic);
-      const child = "m/44'/501'/0'/0'".toString();
+      const child = "m/44'/501'/0'/0'";  // 派生路径
       const derivedSeed = ED25519derivePath(child, seed.toString("hex")).key;
       this.solanaSeed = Buffer.from(derivedSeed.slice(0, 32)).toString('hex');
       const account = Keypair.fromSeed(derivedSeed.slice(0, 32));
@@ -1081,7 +1081,7 @@ export default {
         alert("Input is not a mnemonic");
         return
       }
-      const child = "m/44'/60'/0'/0/0".toString();
+      const child = "m/44'/60'/0'/0/0";  // 派生路径
       let account = this.crypto.recover(mnemonic, "constants.Language.EN", child);
       this.cosmosAddress = account.address;
       this.cosmosPrivateKey = account.privateKey;
@@ -1112,7 +1112,7 @@ export default {
         alert("Input is not a mnemonic");
         return
       }
-      const child = "m/44'/60'/0'/0/0";
+      const child = "m/44'/60'/0'/0/0";  // 派生路径
       const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic, child);
       // console.log('walletMnemonic:', walletMnemonic);
       this.ethAddress = walletMnemonic.address;
@@ -1377,7 +1377,7 @@ export default {
         alert("Input is not a mnemonic");
         return
       }
-      const child = "m/44'/309'/0'/0/0";
+      const child = "m/44'/309'/0'/0/0";  // 派生路径
       const walletMnemonic = ethers.Wallet.fromMnemonic(mnemonic, child);
 
       let privateKey = walletMnemonic.privateKey;
